@@ -6,7 +6,35 @@ using System.Threading.Tasks;
 
 namespace ProjectRoquesAndBuiBui
 {
-    class Entreprise
+    abstract class Entreprise : Secondaire,IEmployable
     {
+        int nbrEmployeActuelAise;
+        int nbrEmployeActuelMoyenne;
+        int nbrEmployeActuelOuvriere;
+        int nbrEmployeMaxAise;
+        int nbrEmployeMaxMoyenne;
+        int nbrEmployeMaxOuvriere;
+
+        public Entreprise(int nbrEmployeMaxAise, int nbrEmployeMaxMoyenne, int nbrEmployeMaxOuvriere,int coutMensuel, string nom, int prix, int taille, ConsoleColor couleur) : base(coutMensuel, nom, prix, taille, couleur)
+        {
+            this.nbrEmployeActuelAise = 0;
+            this.nbrEmployeActuelMoyenne = 0;
+            this.nbrEmployeActuelOuvriere = 0;
+            this.nbrEmployeMaxAise = nbrEmployeMaxAise;
+            this.nbrEmployeMaxMoyenne = nbrEmployeMaxMoyenne;
+            this.nbrEmployeMaxOuvriere = nbrEmployeMaxOuvriere;
+        }
+
+        public int NbrEmployeActuelAise { get => nbrEmployeActuelAise; set => nbrEmployeActuelAise = value; }
+        public int NbrEmployeActuelMoyenne { get => nbrEmployeActuelMoyenne; set => nbrEmployeActuelMoyenne = value; }
+        public int NbrEmployeActuelOuvriere { get => nbrEmployeActuelOuvriere; set => nbrEmployeActuelOuvriere = value; }
+        public int NbrEmployeMaxAise { get => nbrEmployeMaxAise; set => nbrEmployeMaxAise = value; }
+        public int NbrEmployeMaxMoyenne { get => nbrEmployeMaxMoyenne; set => nbrEmployeMaxMoyenne = value; }
+        public int NbrEmployeMaxOuvriere { get => nbrEmployeMaxOuvriere; set => nbrEmployeMaxOuvriere = value; }
+
+        public override string ToString()
+        {
+            return base.ToString()+"\nNombre d'employé aisé : "+nbrEmployeActuelAise+"\nNombre d'employé moyen : "+nbrEmployeActuelMoyenne+"\nNombre d'emplyé ouvrier : "+nbrEmployeActuelOuvriere;
+        }
     }
 }

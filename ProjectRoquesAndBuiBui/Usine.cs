@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace ProjectRoquesAndBuiBui
 {
-    class Usine
+    class Usine : Entreprise
     {
+        public Usine(int NbrEmployeMaxAise, int NbrEmployeMaxMoyenne, int NbrEmployeMaxOuvriere, int coutMensuel, string nom, int prix, int taille, ConsoleColor couleur) : base(NbrEmployeMaxAise,NbrEmployeMaxMoyenne,NbrEmployeMaxOuvriere, coutMensuel, nom, prix, taille, couleur)
+        {
+        }
     }
 }

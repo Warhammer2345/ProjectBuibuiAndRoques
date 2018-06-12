@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace ProjectRoquesAndBuiBui
 {
-    class Tertiaire
+    abstract class Tertiaire : Batiment
     {
+        public Tertiaire(int coutMensuel, string nom, int prix, int taille, ConsoleColor couleur) : base(coutMensuel, nom, prix, taille, couleur)
+        { }
+        public override string ToString()
+        {
+            return base.ToString();
+        }
     }
 }

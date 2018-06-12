@@ -44,8 +44,10 @@
   <ItemGroup>
     <Compile Include="Amenagement.cs" />
     <Compile Include="Batiment.cs" />
+    <Compile Include="BatimentAdministratif.cs" />
     <Compile Include="Bonus.cs" />
     <Compile Include="Bureau.cs" />
+    <Compile Include="Catalogue.cs" />
     <Compile Include="Commercant.cs" />
     <Compile Include="CompanieEau.cs" />
     <Compile Include="CompanieElectricite.cs" />

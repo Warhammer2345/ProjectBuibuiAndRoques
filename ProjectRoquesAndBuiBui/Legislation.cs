@@ -9,5 +9,9 @@ namespace ProjectRoquesAndBuiBui
     class Legislation
     {
         private List<Loi> lois;
+        public Legislation()
+        {
+            this.lois = new List<Loi>();
+        }
     }
 }
