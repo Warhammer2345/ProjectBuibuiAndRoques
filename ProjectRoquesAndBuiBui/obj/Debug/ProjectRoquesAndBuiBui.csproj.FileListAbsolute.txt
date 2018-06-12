@@ -1,0 +1,7 @@
+c:\users\valentin\source\repos\ProjectRoquesAndBuiBui\ProjectRoquesAndBuiBui\bin\Debug\ProjectRoquesAndBuiBui.exe.config
+c:\users\valentin\source\repos\ProjectRoquesAndBuiBui\ProjectRoquesAndBuiBui\bin\Debug\ProjectRoquesAndBuiBui.exe
+c:\users\valentin\source\repos\ProjectRoquesAndBuiBui\ProjectRoquesAndBuiBui\bin\Debug\ProjectRoquesAndBuiBui.pdb
+c:\users\valentin\source\repos\ProjectRoquesAndBuiBui\ProjectRoquesAndBuiBui\obj\Debug\ProjectRoquesAndBuiBui.csprojAssemblyReference.cache
+c:\users\valentin\source\repos\ProjectRoquesAndBuiBui\ProjectRoquesAndBuiBui\obj\Debug\ProjectRoquesAndBuiBui.csproj.CoreCompileInputs.cache
+c:\users\valentin\source\repos\ProjectRoquesAndBuiBui\ProjectRoquesAndBuiBui\obj\Debug\ProjectRoquesAndBuiBui.exe
+c:\users\valentin\source\repos\ProjectRoquesAndBuiBui\ProjectRoquesAndBuiBui\obj\Debug\ProjectRoquesAndBuiBui.pdb
