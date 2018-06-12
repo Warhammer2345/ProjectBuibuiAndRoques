@@ -14,24 +14,26 @@ namespace ProjectRoquesAndBuiBui
         int prix;
         int taille;
         ConsoleColor couleur;
-        private static int globalIdAmenagement;
-        public Amenagement(string nom, int prix, int taille,ConsoleColor couleur)
+        private static int globalIdAmenagement = 0;
+        public Amenagement(string nom, int prix, int taille, ConsoleColor couleur)
         {
             this.nom = nom;
-            this.idAmenagement = Interlocked.Increment(ref globalIdAmenagement);
+            this.idAmenagement = globalIdAmenagement;
             this.prix = prix;
             this.taille = taille;
             this.couleur = couleur;
+            globalIdAmenagement += 1;
         }
         public override string ToString()
         {
-            return "nom : " + this.nom + "\nCouleur : " + this.Couleur;
+            return "\nID Aménagement : "+idAmenagement+"\nnom : " + this.nom + "\nCouleur : " + this.Couleur;
         }
 
         public object Clone()
         {
             Amenagement amenagement = (Amenagement)MemberwiseClone();
-            amenagement.idAmenagement = Interlocked.Increment(ref globalIdAmenagement);
+            amenagement.idAmenagement = globalIdAmenagement;
+            globalIdAmenagement += 1;
             return amenagement;
         }
 

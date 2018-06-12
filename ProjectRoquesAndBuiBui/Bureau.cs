@@ -24,6 +24,7 @@ namespace ProjectRoquesAndBuiBui
 
         public int MinOccupation { get => minOccupation; }
         public int PlacesOccupees { get => placesOccupees;  }
+        public double PrixLocation { get => prixLocation; set => prixLocation = value; }
 
         public override string ToString()
         {

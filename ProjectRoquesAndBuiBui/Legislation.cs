@@ -13,5 +13,7 @@ namespace ProjectRoquesAndBuiBui
         {
             this.lois = new List<Loi>();
         }
+
+        public List<Loi> Lois { get => lois; set => lois = value; }
     }
 }

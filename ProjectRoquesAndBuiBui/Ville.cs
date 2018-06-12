@@ -18,13 +18,16 @@ namespace ProjectRoquesAndBuiBui
         private double coefImpotEntreprise;
         private double impotParCycle;
         private double depenseParCycle;
+        private double energieConsomme;
+        private double eauConsomme;
+        private Marche marcheFinancier;
         private List<Amenagement> amenagements;
         private List<Bonus> bonus;
         private Legislation legislation;
         private Catalogue catalogue;
         private Terrain map;
 
-        public Ville(double argent, double attractivite, double bonheur,int taille)
+        public Ville(double argent, double attractivite, double bonheur,int taille, double valEau,double valElectricite)
         {
             this.argent = argent;
             this.population = 0;
@@ -41,6 +44,7 @@ namespace ProjectRoquesAndBuiBui
             this.legislation = new Legislation();
             catalogue = new Catalogue();
             map = new Terrain(taille);
+            marcheFinancier = new Marche(valElectricite, valEau);
         }
 
         public Amenagement AjouterAmenagement()
@@ -103,16 +107,24 @@ namespace ProjectRoquesAndBuiBui
             get { return map; }
         }
 
-        public void CalculRevenu()
+        /// <summary>
+        /// Renvoie le revenu à chaque tour à mettre dans un thread
+        /// </summary>
+        /// <returns></returns>
+        public double CalculRevenu()
         {
             double revenu = 0;
             foreach(Amenagement a in amenagements)
             {
-                revenu += CoutEntretien(a);
-
-
+                revenu -= CoutEntretien(a);
+                revenu -= CoutProduction(a);
+                revenu += venteProduit(a);
+                revenu += impotEntreprise(a);
             }
+            revenu -= CoutMensuelLoi();
+            return revenu;
         }
+
         private int CoutEntretien(Amenagement batisse)
         {
             int revenu = 0;
@@ -134,9 +146,68 @@ namespace ProjectRoquesAndBuiBui
             }
             return revenu;
         }
-        /*private double CoutProduction(Amenagement batisse)
+        private double CoutProduction(Amenagement batisse)
         {
-            if(batisse is)
-        }*/
+            double depense = 0;
+            if (batisse is CompagnieEau)
+            {
+                depense += (batisse as CompagnieEau).EauProduite * 1.5;
+            }
+            else if (batisse is CompagnieElectricite)
+                depense += (batisse as CompagnieElectricite).EnergieProduite * 0.10;
+            else if (batisse is CompagnieTransport)
+                depense += (batisse as CompagnieTransport).NombreTransport * 200;
+            return depense;
+        }
+        private double CoutMensuelLoi()
+        {
+            double depense = 0;
+            foreach(Loi a in legislation.Lois)
+            {
+                if (a.Active)
+                    depense += a.CoutMensuel;
+            }
+            return depense;
+        }
+        private double revenu(Amenagement batisse)
+        {
+            double recette = 0;
+            if (batisse is Bureau)
+                recette += (batisse as Bureau).PlacesOccupees * (batisse as Bureau).PrixLocation;
+            else if (batisse is Usine)
+                recette += 2000;
+            else if (batisse is Commercant)
+                recette += (batisse as Commercant).ProduitVendu * (batisse as Commercant).PrixVente * 0.2;
+            else if (batisse is CompagnieTransport)
+                recette += (batisse as CompagnieTransport).PrixTransport * (batisse as CompagnieTransport).Frequentation;
+            return recette;
+        }
+        private double impotEntreprise(Amenagement batisse)
+        {
+            double recette = 0;
+            if (batisse is Bureau)
+                recette += (batisse as Bureau).PlacesOccupees * 1500;
+            if (batisse is Usine)
+                recette += ((batisse as Usine).NbrEmployeActuelOuvriere + (batisse as Usine).NbrEmployeActuelMoyenne + (batisse as Usine).NbrEmployeActuelAise) * 100;
+            if (batisse is Commercant)
+                recette += ((batisse as Commercant).NbrEmployeActuelAise + (batisse as Commercant).NbrEmployeActuelMoyenne + (batisse as Commercant).NbrEmployeActuelOuvriere) * 100;
+            return recette;
+        }
+        private double venteProduit(Amenagement batisse)
+        {
+            double recette = 0;
+            if (batisse is CompagnieElectricite)
+            {
+                recette += ((batisse as CompagnieElectricite).EnergieProduite - (batisse as CompagnieElectricite).EnergieRestante) * marcheFinancier.Electricite;
+                (batisse as CompagnieElectricite).EnergieRestante = 0;
+            }
+            else if (batisse is CompagnieEau)
+            {
+                recette += ((batisse as CompagnieEau).EauProduite - (batisse as CompagnieEau).EauRestante) * marcheFinancier.Eau;
+                (batisse as CompagnieEau).EauRestante = 0;
+            }
+            return recette;
+
+        }
     }
 }

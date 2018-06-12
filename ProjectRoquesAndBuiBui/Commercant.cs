@@ -14,6 +14,8 @@ namespace ProjectRoquesAndBuiBui
         int nbrEmployeMaxAise;
         int nbrEmployeMaxMoyenne;
         int nbrEmployeMaxOuvriere;
+        int produitVendu;
+        int prixVente;
         public Commercant(int nbrEmployeActuelAise, int nbrEmployeActuelMoyenne, int nbrEmployeActuelOuvriere, int nbrEmployeMaxAise, int nbrEmployeMaxMoyenne, int nbrEmployeMaxOuvriere,int coutMensuel, string nom, int prix, int taille, ConsoleColor couleur) : base(coutMensuel, nom, prix, taille, couleur)
         {
             this.nbrEmployeActuelAise = nbrEmployeActuelAise;
@@ -22,6 +24,8 @@ namespace ProjectRoquesAndBuiBui
             this.nbrEmployeMaxAise = nbrEmployeMaxAise;
             this.nbrEmployeMaxMoyenne = nbrEmployeMaxMoyenne;
             this.nbrEmployeMaxOuvriere = nbrEmployeMaxOuvriere;
+            produitVendu = 0;
+            prixVente = 10;
         }
         public int NbrEmployeActuelAise { get => nbrEmployeActuelAise; set => nbrEmployeActuelAise = value; }
         public int NbrEmployeActuelMoyenne { get => nbrEmployeActuelMoyenne; set => nbrEmployeActuelMoyenne = value; }
@@ -29,6 +33,9 @@ namespace ProjectRoquesAndBuiBui
         public int NbrEmployeMaxAise { get => nbrEmployeMaxAise; set => nbrEmployeMaxAise = value; }
         public int NbrEmployeMaxMoyenne { get => nbrEmployeMaxMoyenne; set => nbrEmployeMaxMoyenne = value; }
         public int NbrEmployeMaxOuvriere { get => nbrEmployeMaxOuvriere; set => nbrEmployeMaxOuvriere = value; }
+        public int ProduitVendu { get => produitVendu; set => produitVendu = value; }
+        public int PrixVente { get => prixVente; set => prixVente = value; }
+
         public override string ToString()
         {
             return base.ToString() + "\nNombre d'employé aisé : " + nbrEmployeActuelAise + "\nNombre d'employé moyen : " + nbrEmployeActuelMoyenne + "\nNombre d'emplyé ouvrier : " + nbrEmployeActuelOuvriere;

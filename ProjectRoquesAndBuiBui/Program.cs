@@ -18,7 +18,7 @@ namespace ProjectRoquesAndBuiBui
             Usine test1 = new Usine(2, 5, 7, 58, "kzs", 58, 8, ConsoleColor.Cyan);
             Usine test2 = (Usine)test1.Clone();
             test2.NbrEmployeActuelAise = 25;
-            Ville sebastopol = new Ville(5000000, 0, 0, 20);
+            Ville sebastopol = new Ville(5000000, 0, 0, 20,1.5,0.2);
 
             t = sebastopol.Map;
             while (true)
@@ -40,7 +40,7 @@ namespace ProjectRoquesAndBuiBui
             }
             
         }
-        
+
 
 
         static void PlacerUnBatiment(Amenagement a)
@@ -54,6 +54,9 @@ namespace ProjectRoquesAndBuiBui
 
             while (continuer)
             {
+
+                Amenagement temp = (Amenagement)a.Clone();
+
                 Console.SetCursorPosition(posX, posY);
                 bool dispo = VerifierPlace(a, t);
                 AfficherPlace(a, t, dispo);
@@ -63,9 +66,13 @@ namespace ProjectRoquesAndBuiBui
 
                 if (key == ConsoleKey.Enter)
                 {
-                    PoserAmenagement(a, t);
-                    Console.Clear();
-                    t.AfficherTerrain();
+                    if (dispo)
+                    {
+                        PoserAmenagement(temp, t);
+                        Console.Clear();
+                        t.AfficherTerrain();
+                    }
+
                 }
                 if (key == ConsoleKey.Escape)
                 {
@@ -167,12 +174,14 @@ namespace ProjectRoquesAndBuiBui
 
                 DeplacementCurseur(key);
 
-                
+                Console.Clear();
+                t.AfficherTerrain();
                 AfficherInfoAmenagement();
 
                 if (key == ConsoleKey.Delete)
                 {
                     SupprimerBatiment();
+                    Console.Clear();
                     t.AfficherTerrain();
                 }
                 if (key == ConsoleKey.Escape)
@@ -180,8 +189,7 @@ namespace ProjectRoquesAndBuiBui
                     continuer = false;
                 }
 
-                Console.Clear();
-                t.AfficherTerrain();
+
             }
 
 
@@ -216,6 +224,33 @@ namespace ProjectRoquesAndBuiBui
                 Console.WriteLine("Aucun Amenagement à cet emplacement");
             }
             Console.SetCursorPosition(posX, posY);
+        }
+
+        static bool PathFinding(List<Route> routesbloquees, Queue<Route> routesachercher)
+        {
+            Route actuel = routesachercher.Dequeue();
+
+            if (actuel.EstSortie) return true;
+            else
+            {
+                foreach (Route r in AjoutRoutesAdjacentes(routesbloquees, actuel))
+                {
+
+                }
+            }
+            return false;
+
+        }
+
+        static List<Route> AjoutRoutesAdjacentes(List<Route> routesbloquees, Route r)
+        {
+            List<Route> temp = new List<Route>();
+            if (r.X > 0 && t.Carte[r.Y, r.X - 1] is Route && !routesbloquees.Contains(t.Carte[r.Y, r.X - 1] as Route)) temp.Add(t.Carte[r.Y, r.X - 1] as Route);
+            if (r.Y > 0 && t.Carte[r.Y - 1, r.X] is Route && !routesbloquees.Contains(t.Carte[r.Y - 1, r.X] as Route)) temp.Add(t.Carte[r.Y - 1, r.X] as Route);
+            if (r.X < t.Taille - 1 && t.Carte[r.Y, r.X + 1] is Route && !routesbloquees.Contains(t.Carte[r.Y, r.X + 1] as Route)) temp.Add(t.Carte[r.Y, r.X + 1] as Route);
+            if (r.Y < t.Taille - 1 && t.Carte[r.Y + 1, r.X] is Route && !routesbloquees.Contains(t.Carte[r.Y + 1, r.X] as Route)) temp.Add(t.Carte[r.Y + 1, r.X] as Route);
+
+            return temp;
         }
     }
 }
