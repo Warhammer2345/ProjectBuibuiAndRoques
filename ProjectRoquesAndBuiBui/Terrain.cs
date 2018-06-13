@@ -10,6 +10,8 @@ namespace ProjectRoquesAndBuiBui
     {
         Amenagement[,] carte;
         int taille;
+        static int posX = 0;
+        static int posY = 0;
 
         public Terrain(int taille)
         {
@@ -46,6 +48,235 @@ namespace ProjectRoquesAndBuiBui
         public Amenagement[,] Carte
         {
             get { return carte; }
+        }
+
+        public void PlacerUnBatiment(Amenagement a, Ville v)
+        {
+            bool continuer = true;
+            posX = 0;
+            posY = 0;
+
+            Console.Clear();
+            AfficherTerrain();
+
+            while (continuer)
+            {
+
+                Amenagement temp = (Amenagement)a.Clone();
+
+                Console.SetCursorPosition(posX, posY);
+                bool dispo = VerifierPlace(a);
+                AfficherPlace(a, dispo);
+
+                ConsoleKey key = Console.ReadKey(true).Key;
+                DeplacementCurseur(key);
+
+                if (key == ConsoleKey.Enter)
+                {
+                    if (dispo)
+                    {
+                        PoserAmenagement(temp);
+                        Console.Clear();
+                        AfficherTerrain();
+                        v.AjoutAmenagement(temp);
+                        if (temp is Route)
+                        {
+                            (temp as Route).X = posX;
+                            (temp as Route).Y = posY;
+                        }
+                    }
+
+                }
+                if (key == ConsoleKey.Escape)
+                {
+                    continuer = false;
+                }
+
+                Console.Clear();
+                AfficherTerrain();
+
+            }
+        }
+
+        bool VerifierPlace(Amenagement a)
+        {
+            if (posY + a.Taille > taille || posX + a.Taille > taille) return false;
+            for (int i = posY; i < posY + a.Taille; i++)
+            {
+                for (int j = posX; j < posX + a.Taille; j++)
+                {
+                    if (carte[i, j] != null) return false;
+                }
+            }
+            return true;
+        }
+
+        void AfficherPlace(Amenagement a, bool disponible)
+        {
+            Console.BackgroundColor = (disponible) ? ConsoleColor.Green : ConsoleColor.Red;
+
+            for (int i = posY; i < Math.Min(posY + a.Taille, taille); i++)
+            {
+                for (int j = posX; j < Math.Min(posX + a.Taille, taille); j++)
+                {
+                    Console.SetCursorPosition(j, i);
+                    if (carte[i, j] != null)
+                    {
+                        Console.ForegroundColor = carte[i, j].Couleur;
+                        Console.Write("V");
+                        Console.ForegroundColor = ConsoleColor.White;
+                    }
+                    else
+                    {
+                        Console.Write("O");
+                    }
+                }
+            }
+            Console.SetCursorPosition(posX, posY);
+            Console.BackgroundColor = ConsoleColor.Black;
+        }
+
+        void PoserAmenagement(Amenagement a)
+        {
+            for (int i = posY; i < posY + a.Taille; i++)
+            {
+                for (int j = posX; j < posX + a.Taille; j++)
+                {
+                    carte[i, j] = a;
+                }
+            }
+        }
+
+        void DeplacementCurseur(ConsoleKey key)
+        {
+            if (key == ConsoleKey.Z || key == ConsoleKey.UpArrow)
+            {
+                posY -= 1;
+                if (posY < 0) posY = 0;
+            }
+            if (key == ConsoleKey.Q || key == ConsoleKey.LeftArrow)
+            {
+                posX -= 1;
+                if (posX < 0) posX = 0;
+            }
+            if (key == ConsoleKey.S || key == ConsoleKey.DownArrow)
+            {
+                posY += 1;
+                if (posY > taille - 1) posY = taille - 1;
+            }
+            if (key == ConsoleKey.D || key == ConsoleKey.RightArrow)
+            {
+                posX += 1;
+                if (posX > taille - 1) posX = taille - 1;
+            }
+        }
+
+        public void ObserverLaCarte(Ville v)
+        {
+            bool continuer = true;
+            posX = 0;
+            posY = 0;
+            Console.Clear();
+            AfficherTerrain();
+            AfficherInfoAmenagement();
+
+            while (continuer)
+            {
+                Console.SetCursorPosition(posX, posY);
+                ConsoleKey key = Console.ReadKey(true).Key;
+
+                DeplacementCurseur(key);
+
+                Console.Clear();
+                AfficherTerrain();
+                AfficherInfoAmenagement();
+
+                if (key == ConsoleKey.Delete)
+                {
+                    Amenagement a = SupprimerBatiment();
+                    if (a != null) v.SupprimerAmenagement(a);
+                    Console.Clear();
+                    AfficherTerrain();
+                }
+                if(key == ConsoleKey.Enter)
+                {
+                    Amenagement a = carte[posY, posX];
+                    if(a != null)
+                    {
+                        if(a is IParametrable)
+                        {
+                            (a as IParametrable).ModifierParametre();
+                        }
+                    }
+                }
+                if (key == ConsoleKey.Escape)
+                {
+                    continuer = false;
+                }
+
+
+            }
+
+
+        }
+
+        Amenagement SupprimerBatiment()
+        {
+            Amenagement a = carte[posY, posX];
+            if (a != null)
+            {
+                int id = a.IdAmenagement;
+
+                for (int i = Math.Max(0, posY - a.Taille); i < Math.Min(taille, posY + a.Taille); i++)
+                {
+                    for (int j = Math.Max(0, posX - a.Taille); j < Math.Min(taille, posX + a.Taille); j++)
+                    {
+                        if (carte[i, j] != null && carte[i, j].IdAmenagement == id) carte[i, j] = null;
+                    }
+                }
+            }
+            return a;
+        }
+
+        void AfficherInfoAmenagement()
+        {
+            Console.SetCursorPosition(0, 25);
+            if (carte[posY, posX] != null)
+            {
+                Console.WriteLine(carte[posY, posX]);
+            }
+            else
+            {
+                Console.WriteLine("Aucun Amenagement à cet emplacement");
+            }
+            Console.SetCursorPosition(posX, posY);
+        }
+
+        bool PathFinding(List<Route> routesbloquees, Queue<Route> routesachercher)
+        {
+            Route actuel = routesachercher.Dequeue();
+
+            if (actuel.EstSortie) return true;
+
+            foreach (Route r in AjoutRoutesAdjacentes(routesbloquees, actuel))
+            {
+                routesachercher.Enqueue(r);
+            }
+            routesbloquees.Add(actuel);
+
+            if (routesachercher.Count == 0) return false;
+            else return PathFinding(routesbloquees, routesachercher);
+        }
+
+        List<Route> AjoutRoutesAdjacentes(List<Route> routesbloquees, Route r)
+        {
+            List<Route> temp = new List<Route>();
+            if (r.X > 0 && carte[r.Y, r.X - 1] is Route && !routesbloquees.Contains(carte[r.Y, r.X - 1] as Route)) temp.Add(carte[r.Y, r.X - 1] as Route);
+            if (r.Y > 0 && carte[r.Y - 1, r.X] is Route && !routesbloquees.Contains(carte[r.Y - 1, r.X] as Route)) temp.Add(carte[r.Y - 1, r.X] as Route);
+            if (r.X < taille - 1 && carte[r.Y, r.X + 1] is Route && !routesbloquees.Contains(carte[r.Y, r.X + 1] as Route)) temp.Add(carte[r.Y, r.X + 1] as Route);
+            if (r.Y < taille - 1 && carte[r.Y + 1, r.X] is Route && !routesbloquees.Contains(carte[r.Y + 1, r.X] as Route)) temp.Add(carte[r.Y + 1, r.X] as Route);
+
+            return temp;
         }
 
     }

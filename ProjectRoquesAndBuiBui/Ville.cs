@@ -47,7 +47,7 @@ namespace ProjectRoquesAndBuiBui
             marcheFinancier = new Marche(valElectricite, valEau);
         }
 
-        public Amenagement SelectionnerAmenagement()
+        Amenagement SelectionnerAmenagement()
         {
             Console.WriteLine(catalogue.Listing());
 
@@ -61,48 +61,7 @@ namespace ProjectRoquesAndBuiBui
             return (Amenagement)catalogue.Catalogues[lecture - 1].Clone();
         }
 
-        private int EssayerConvertirInt(string aConvertir)
-        {
-            int aRetourner;
-            try
-            {
-                aRetourner = Convert.ToInt32(aConvertir);
-            }
-            catch
-            {
-                aRetourner = -1;
-            }
-            return aRetourner;
-        }
-
-        private bool EssayerConvertirBool(string aConvertir)
-        {
-            bool aRetourner;
-            try
-            {
-                aRetourner = Convert.ToBoolean(aConvertir);
-            }
-            catch
-            {
-                aRetourner = false;
-            }
-            return aRetourner;
-        }
-
-        private double EssayerConvertirDouble(string aConvertir)
-        {
-            double aRetourner;
-            try
-            {
-                aRetourner = Convert.ToDouble(aConvertir);
-            }
-            catch
-            {
-                aRetourner = -1;
-            }
-            return aRetourner;
-        }
-
+       
         public Terrain Map
         {
             get { return map; }
@@ -111,6 +70,21 @@ namespace ProjectRoquesAndBuiBui
         public void AjoutAmenagement(Amenagement a)
         {
             amenagements.Add(a);
+        }
+
+        public void SupprimerAmenagement(Amenagement a)
+        {
+            amenagements.Remove(a);
+        }
+
+        public void PlacerUnAmenagement()
+        {
+            map.PlacerUnBatiment(SelectionnerAmenagement(), this);
+        }
+
+        public void ObserverLaCarte()
+        {
+            map.ObserverLaCarte(this);
         }
 
         /// <summary>
@@ -220,5 +194,133 @@ namespace ProjectRoquesAndBuiBui
             return recette;
 
         }
+
+        public void ModifierImpots()
+        {
+            bool continuer = true;
+            int cpt = 0;
+            Console.Clear();
+            Console.WriteLine("Impot Aisee : ");
+            AfficheSlideBar(1, coefImpotAisee, 2, 0.1);
+            Console.WriteLine("Impot Moyenne : ");
+            AfficheSlideBar(1, coefImpotMoyenne, 2, 0.1);
+            Console.WriteLine("Impot Ouvriere : ");
+            AfficheSlideBar(1, coefImpotOuvriere, 2, 0.1);
+
+            while (continuer)
+            {
+                Console.SetCursorPosition(0, cpt * 2 + 1);
+                ConsoleKey key = Console.ReadKey(true).Key;
+
+                if(key == ConsoleKey.UpArrow)
+                {
+                    cpt -= 1;
+                    if (cpt < 0) cpt = 0;
+                }
+                if(key == ConsoleKey.DownArrow)
+                {
+                    cpt += 1;
+                    if (cpt > 2) cpt = 2;
+                }
+                if(key == ConsoleKey.RightArrow)
+                {
+                    ChangeCoefImpot(cpt, 0.1);
+                }
+                if (key == ConsoleKey.LeftArrow)
+                {
+                    ChangeCoefImpot(cpt, -0.1);
+                }
+                if (key == ConsoleKey.Escape)
+                {
+                    continuer = false;
+                }
+
+                Console.Clear();
+                Console.WriteLine("Impot Aisee : ");
+                AfficheSlideBar(1, coefImpotAisee, 2, 0.1);
+                Console.WriteLine("Impot Moyenne : ");
+                AfficheSlideBar(1, coefImpotMoyenne, 2, 0.1);
+                Console.WriteLine("Impot Ouvriere : ");
+                AfficheSlideBar(1, coefImpotOuvriere, 2, 0.1);
+
+               
+            }
+
+        }
+
+        void AfficheSlideBar(double valueMin, double value, double valueMax, double interval)
+        {
+            string temp = valueMin + " <";
+            for(double i = valueMin; i < value; i += interval)
+            {
+                temp += "-";
+            }
+            temp += value;
+            for(double i = value; i < valueMax; i += interval)
+            {
+                temp += "-";
+            }
+            temp += "> " + valueMax;
+            Console.WriteLine(temp);
+        }
+
+        void ChangeCoefImpot(int cpt, double value)
+        {
+            if (cpt == 0) coefImpotAisee += value;
+            if (coefImpotAisee > 2) coefImpotAisee = 2;
+            if (coefImpotAisee < 1) coefImpotAisee = 1;
+            if (cpt == 1) coefImpotMoyenne += value;
+            if (coefImpotMoyenne > 2) coefImpotMoyenne = 2;
+            if (coefImpotMoyenne < 1) coefImpotMoyenne = 1;
+            if (cpt == 2) coefImpotOuvriere += value;
+            if (coefImpotOuvriere > 2) coefImpotOuvriere = 2;
+            if (coefImpotOuvriere < 1) coefImpotOuvriere = 1;
+        }
+
+        #region Convertion
+
+            private int EssayerConvertirInt(string aConvertir)
+        {
+            int aRetourner;
+            try
+            {
+                aRetourner = Convert.ToInt32(aConvertir);
+            }
+            catch
+            {
+                aRetourner = -1;
+            }
+            return aRetourner;
+        }
+
+        private bool EssayerConvertirBool(string aConvertir)
+        {
+            bool aRetourner;
+            try
+            {
+                aRetourner = Convert.ToBoolean(aConvertir);
+            }
+            catch
+            {
+                aRetourner = false;
+            }
+            return aRetourner;
+        }
+
+        private double EssayerConvertirDouble(string aConvertir)
+        {
+            double aRetourner;
+            try
+            {
+                aRetourner = Convert.ToDouble(aConvertir);
+            }
+            catch
+            {
+                aRetourner = -1;
+            }
+            return aRetourner;
+        }
+
+        #endregion
     }
 }

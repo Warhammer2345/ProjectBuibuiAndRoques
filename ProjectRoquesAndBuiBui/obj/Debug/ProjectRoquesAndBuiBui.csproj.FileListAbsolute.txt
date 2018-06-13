@@ -19,3 +19,10 @@ C:\Users\Valentin Buisson\Desktop\ProjectBuibuiAndRoques-master\ProjectBuibuiAnd
 C:\Users\Valentin Buisson\Desktop\ProjectBuibuiAndRoques-master\ProjectBuibuiAndRoques-master\ProjectRoquesAndBuiBui\obj\Debug\ProjectRoquesAndBuiBui.csproj.CoreCompileInputs.cache
 C:\Users\Valentin Buisson\Desktop\ProjectBuibuiAndRoques-master\ProjectBuibuiAndRoques-master\ProjectRoquesAndBuiBui\obj\Debug\ProjectRoquesAndBuiBui.exe
 C:\Users\Valentin Buisson\Desktop\ProjectBuibuiAndRoques-master\ProjectBuibuiAndRoques-master\ProjectRoquesAndBuiBui\obj\Debug\ProjectRoquesAndBuiBui.pdb
+C:\Users\Valentin Buisson\Desktop\Nouveau dossier (2)\ProjectRoquesAndBuiBui\bin\Debug\ProjectRoquesAndBuiBui.exe.config
+C:\Users\Valentin Buisson\Desktop\Nouveau dossier (2)\ProjectRoquesAndBuiBui\bin\Debug\ProjectRoquesAndBuiBui.exe
+C:\Users\Valentin Buisson\Desktop\Nouveau dossier (2)\ProjectRoquesAndBuiBui\bin\Debug\ProjectRoquesAndBuiBui.pdb
+C:\Users\Valentin Buisson\Desktop\Nouveau dossier (2)\ProjectRoquesAndBuiBui\obj\Debug\ProjectRoquesAndBuiBui.csprojAssemblyReference.cache
+C:\Users\Valentin Buisson\Desktop\Nouveau dossier (2)\ProjectRoquesAndBuiBui\obj\Debug\ProjectRoquesAndBuiBui.csproj.CoreCompileInputs.cache
+C:\Users\Valentin Buisson\Desktop\Nouveau dossier (2)\ProjectRoquesAndBuiBui\obj\Debug\ProjectRoquesAndBuiBui.exe
+C:\Users\Valentin Buisson\Desktop\Nouveau dossier (2)\ProjectRoquesAndBuiBui\obj\Debug\ProjectRoquesAndBuiBui.pdb

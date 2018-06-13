@@ -55,6 +55,7 @@
     <Compile Include="Culture.cs" />
     <Compile Include="Entreprise.cs" />
     <Compile Include="IEmployable.cs" />
+    <Compile Include="IParametrable.cs" />
     <Compile Include="Legislation.cs" />
     <Compile Include="Logement.cs" />
     <Compile Include="Loi.cs" />

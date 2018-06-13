@@ -15,7 +15,8 @@ namespace ProjectRoquesAndBuiBui
         int prixLoi;
         int coutMensuel;
         EffetDeLaLoi effetDeLaLoi;
-        public Loi(string nom, bool active, int prixLoi, int coutMensuel,EffetDeLaLoi effetDeLaLoi)
+
+        public Loi(string nom, bool active, int prixLoi, int coutMensuel, EffetDeLaLoi effetDeLaLoi)
         {
             this.nom = nom;
             this.active = active;
@@ -23,6 +24,12 @@ namespace ProjectRoquesAndBuiBui
             this.coutMensuel = coutMensuel;
             this.effetDeLaLoi = effetDeLaLoi;
         }
+
+        public void Executer()
+        {
+            effetDeLaLoi();
+        }
+
 
         public int CoutMensuel { get => coutMensuel;  }
         public bool Active { get => active; set => active = value; }
