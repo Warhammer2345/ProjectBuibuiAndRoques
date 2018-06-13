@@ -12,11 +12,12 @@ namespace ProjectRoquesAndBuiBui
         public Catalogue()
         {
             catalogues = new List<Amenagement>();
-            catalogues.Add(new CompagnieEau(150,5, 10, 50, 0, "Central d'eau", 1000000, 2, ConsoleColor.Blue));
+            catalogues.Add(new CompagnieEau(150, 5, 10, 50, 0, "Central d'eau", 1000000, 2, ConsoleColor.Blue));
             catalogues.Add(new CompagnieElectricite(150, 5, 10, 50, 0, "Central nucléaire", 1000000, 3, ConsoleColor.Yellow));
-            catalogues.Add(new CompagnieTransport(1,200,2,0,10000, "Bus RATP", 1000000, 3, ConsoleColor.Green));
+            catalogues.Add(new CompagnieTransport(1, 200, 2, 0, 10000, "Bus RATP", 1000000, 3, ConsoleColor.Green));
             catalogues.Add(new Usine(5, 10, 50, 0, "Usine de base", 1000000, 2, ConsoleColor.Red));
-            catalogues.Add(new Logement(20,ClasseSocial.ouvriere,50,5 ,0, "Immeuble ouvrier", 500000, 1, ConsoleColor.Cyan));
+            catalogues.Add(new Logement(20, ClasseSocial.ouvriere, 50, 5,0, "Immeuble ouvrier", 500000, 1, ConsoleColor.Cyan));
+            catalogues.Add(new Route("Route", 10, 1, ConsoleColor.DarkGray, 0, 0, false));
         }
 
        public List<Amenagement> Catalogues { get => catalogues;}
@@ -28,6 +29,7 @@ namespace ProjectRoquesAndBuiBui
                 Console.WriteLine(a.ToString());
             }
         }
+
         public string Listing()
         {
             int compteur = 1;
@@ -36,7 +38,7 @@ namespace ProjectRoquesAndBuiBui
             {
                 if (liste != "")
                     liste += "\n";
-                liste+=compteur+". "+a.Nom;
+                liste += compteur+ ". " + a.Nom;
                 compteur++;
             }
             return liste;

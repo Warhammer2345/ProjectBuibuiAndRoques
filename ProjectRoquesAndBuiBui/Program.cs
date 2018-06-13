@@ -11,16 +11,24 @@ namespace ProjectRoquesAndBuiBui
         static int posX = 0;
         static int posY = 0;
         static Terrain t;
+        static Ville sebastopol;
+
         static void Main(string[] args)
         {
-            Catalogue test = new Catalogue();
-            test.Affichage();
-            Usine test1 = new Usine(2, 5, 7, 58, "kzs", 58, 8, ConsoleColor.Cyan);
-            Usine test2 = (Usine)test1.Clone();
-            test2.NbrEmployeActuelAise = 25;
-            Ville sebastopol = new Ville(5000000, 0, 0, 20,1.5,0.2);
+            
 
+            Catalogue test = new Catalogue();
+            sebastopol = new Ville(5000000, 0, 0, 20,1.5,0.2);
             t = sebastopol.Map;
+
+            //Test route sortie
+
+            
+            t.Carte[0, 0] = new Route("route", 1, 1, ConsoleColor.DarkGray, 0, 0, true);
+
+            //
+
+
             while (true)
             {
                 Console.Clear();
@@ -35,13 +43,24 @@ namespace ProjectRoquesAndBuiBui
                 }
                 if (key == ConsoleKey.NumPad2)
                 {
-                    PlacerUnBatiment(sebastopol.AjouterAmenagement());
+                    PlacerUnBatiment(sebastopol.SelectionnerAmenagement());
+                }
+                if(key == ConsoleKey.P)
+                {
+                    Route r = (Route)t.Carte[2, 2];
+                    if(r != null)
+                    {
+                        Queue<Route> q = new Queue<Route>();
+                        q.Enqueue(r);
+
+                        bool trouve = PathFinding(new List<Route>(), q);
+                        Console.WriteLine();
+                    }
+                    
                 }
             }
             
         }
-
-
 
         static void PlacerUnBatiment(Amenagement a)
         {
@@ -71,6 +90,12 @@ namespace ProjectRoquesAndBuiBui
                         PoserAmenagement(temp, t);
                         Console.Clear();
                         t.AfficherTerrain();
+                        sebastopol.AjoutAmenagement(temp);
+                        if (temp is Route)
+                        {
+                            (temp as Route).X = posX;
+                            (temp as Route).Y = posY;
+                        }
                     }
 
                 }
@@ -231,15 +256,15 @@ namespace ProjectRoquesAndBuiBui
             Route actuel = routesachercher.Dequeue();
 
             if (actuel.EstSortie) return true;
-            else
+
+            foreach (Route r in AjoutRoutesAdjacentes(routesbloquees, actuel))
             {
-                foreach (Route r in AjoutRoutesAdjacentes(routesbloquees, actuel))
-                {
-
-                }
+                routesachercher.Enqueue(r);
             }
-            return false;
+            routesbloquees.Add(actuel);
 
+            if (routesachercher.Count == 0) return false;
+            else return PathFinding(routesbloquees, routesachercher);
         }
 
         static List<Route> AjoutRoutesAdjacentes(List<Route> routesbloquees, Route r)

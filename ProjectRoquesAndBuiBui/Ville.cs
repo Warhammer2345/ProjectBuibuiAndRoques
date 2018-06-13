@@ -47,17 +47,18 @@ namespace ProjectRoquesAndBuiBui
             marcheFinancier = new Marche(valElectricite, valEau);
         }
 
-        public Amenagement AjouterAmenagement()
+        public Amenagement SelectionnerAmenagement()
         {
             Console.WriteLine(catalogue.Listing());
+
             int lecture = EssayerConvertirInt(Console.ReadLine());
+
             while(lecture <= 0 || lecture > catalogue.Catalogues.Count())
             {
                 Console.WriteLine("Rentrer une valeur du catalogue");
                 lecture = EssayerConvertirInt(Console.ReadLine());
             }
-            amenagements.Add((Amenagement)catalogue.Catalogues[lecture - 1].Clone());
-            return amenagements[amenagements.Count - 1];
+            return (Amenagement)catalogue.Catalogues[lecture - 1].Clone();
         }
 
         private int EssayerConvertirInt(string aConvertir)
@@ -107,6 +108,11 @@ namespace ProjectRoquesAndBuiBui
             get { return map; }
         }
 
+        public void AjoutAmenagement(Amenagement a)
+        {
+            amenagements.Add(a);
+        }
+
         /// <summary>
         /// Renvoie le revenu à chaque tour à mettre dans un thread
         /// </summary>
@@ -118,8 +124,8 @@ namespace ProjectRoquesAndBuiBui
             {
                 revenu -= CoutEntretien(a);
                 revenu -= CoutProduction(a);
-                revenu += venteProduit(a);
-                revenu += impotEntreprise(a);
+                revenu += VenteProduit(a);
+                revenu += ImpotEntreprise(a);
             }
             revenu -= CoutMensuelLoi();
             return revenu;
@@ -146,6 +152,7 @@ namespace ProjectRoquesAndBuiBui
             }
             return revenu;
         }
+
         private double CoutProduction(Amenagement batisse)
         {
             double depense = 0;
@@ -159,6 +166,7 @@ namespace ProjectRoquesAndBuiBui
                 depense += (batisse as CompagnieTransport).NombreTransport * 200;
             return depense;
         }
+
         private double CoutMensuelLoi()
         {
             double depense = 0;
@@ -169,7 +177,8 @@ namespace ProjectRoquesAndBuiBui
             }
             return depense;
         }
-        private double revenu(Amenagement batisse)
+
+        private double Revenu(Amenagement batisse)
         {
             double recette = 0;
             if (batisse is Bureau)
@@ -182,7 +191,8 @@ namespace ProjectRoquesAndBuiBui
                 recette += (batisse as CompagnieTransport).PrixTransport * (batisse as CompagnieTransport).Frequentation;
             return recette;
         }
-        private double impotEntreprise(Amenagement batisse)
+
+        private double ImpotEntreprise(Amenagement batisse)
         {
             double recette = 0;
             if (batisse is Bureau)
@@ -193,7 +203,8 @@ namespace ProjectRoquesAndBuiBui
                 recette += ((batisse as Commercant).NbrEmployeActuelAise + (batisse as Commercant).NbrEmployeActuelMoyenne + (batisse as Commercant).NbrEmployeActuelOuvriere) * 100;
             return recette;
         }
-        private double venteProduit(Amenagement batisse)
+
+        private double VenteProduit(Amenagement batisse)
         {
             double recette = 0;
             if (batisse is CompagnieElectricite)
