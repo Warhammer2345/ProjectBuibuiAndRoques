@@ -60,7 +60,7 @@
     <Compile Include="Loi.cs" />
     <Compile Include="LoiEconomique.cs" />
     <Compile Include="LoiSociale.cs" />
-    <Compile Include="LoiTouristique.cs" />
+    <Compile Include="LoiTourisme.cs" />
     <Compile Include="Marche.cs" />
     <Compile Include="Primaire.cs" />
     <Compile Include="Program.cs" />

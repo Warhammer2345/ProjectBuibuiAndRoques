@@ -8,7 +8,7 @@ namespace ProjectRoquesAndBuiBui
 {
     class LoiSociale : Loi
     {
-        public LoiSociale(string nom, int prixLoi, int coutMensuel, EffetDeLaLoi effetDeLaLoi):base(nom,prixLoi,coutMensuel,effetDeLaLoi)
+        public LoiSociale(string nom, int prixLoi, int coutMensuel, double coefMalus, double coefBonus, int prixAnnulation, int cycleMin) : base(nom, prixLoi, coutMensuel, coefMalus, coefBonus, prixAnnulation, cycleMin)
         {
 
         }

@@ -79,10 +79,17 @@ namespace ProjectRoquesAndBuiBui
                         Console.Clear();
                         AfficherTerrain();
                         v.AjoutAmenagement(temp);
-                        if (temp is Route)
+                        
+                        temp.PosX = posX;
+                        temp.PosY = posY;
+                        
+                        if(temp is Route)
                         {
-                            (temp as Route).X = posX;
-                            (temp as Route).Y = posY;
+                            VerifierConnectionToutLesBatiments(v.Amenagements);
+                        }
+                        else
+                        {
+                            VerifierConnectionBatiment(temp);
                         }
                     }
 
@@ -197,6 +204,7 @@ namespace ProjectRoquesAndBuiBui
                     if (a != null) v.SupprimerAmenagement(a);
                     Console.Clear();
                     AfficherTerrain();
+                    VerifierConnectionToutLesBatiments(v.Amenagements);
                 }
                 if(key == ConsoleKey.Enter)
                 {
@@ -252,6 +260,46 @@ namespace ProjectRoquesAndBuiBui
             Console.SetCursorPosition(posX, posY);
         }
 
+        bool VerifierConnectionBatiment(Amenagement a)
+        {
+            int gauche = Math.Max(a.PosX - 1, 0);
+            int droite = Math.Min(a.PosX + a.Taille, taille - 1);
+            int haut = Math.Max(a.PosY - 1, 0);
+            int bas = Math.Min(a.PosY + a.Taille, taille - 1);
+            for (int i = gauche; i <= droite; i++)
+            {
+                for(int j = haut; j <= bas; j++)
+                {
+                    if(!(j == a.PosX - 1 && i == a.PosY + a.Taille) && !(j == a.PosX - 1 && i == a.PosY - 1) && !(j == a.PosX + a.Taille && i == a.PosY + a.Taille) && !(j == a.PosX + a.Taille && i == a.PosY - 1))                  
+                    {
+                        if(carte[i, j] != null && carte[i, j] is Route)
+                        {
+                            Amenagement t = carte[i, j];
+                            bool connecte = PathFinding(new List<Route>(), new Queue<Route> ( new[]{(t as Route) }));
+                            if (connecte)
+                            {
+                                return true;
+                            }
+                            
+                        }
+                    }
+                }
+            }
+
+            return false;
+            
+        }
+
+        void VerifierConnectionToutLesBatiments(List<Amenagement> amenagements) {
+            foreach(Amenagement a in amenagements)
+            {
+                if((a is Batiment))
+                {
+                    (a as Batiment).EstConnecte = VerifierConnectionBatiment(a); 
+                }
+            }
+        }
+
         bool PathFinding(List<Route> routesbloquees, Queue<Route> routesachercher)
         {
             Route actuel = routesachercher.Dequeue();
@@ -271,10 +319,10 @@ namespace ProjectRoquesAndBuiBui
         List<Route> AjoutRoutesAdjacentes(List<Route> routesbloquees, Route r)
         {
             List<Route> temp = new List<Route>();
-            if (r.X > 0 && carte[r.Y, r.X - 1] is Route && !routesbloquees.Contains(carte[r.Y, r.X - 1] as Route)) temp.Add(carte[r.Y, r.X - 1] as Route);
-            if (r.Y > 0 && carte[r.Y - 1, r.X] is Route && !routesbloquees.Contains(carte[r.Y - 1, r.X] as Route)) temp.Add(carte[r.Y - 1, r.X] as Route);
-            if (r.X < taille - 1 && carte[r.Y, r.X + 1] is Route && !routesbloquees.Contains(carte[r.Y, r.X + 1] as Route)) temp.Add(carte[r.Y, r.X + 1] as Route);
-            if (r.Y < taille - 1 && carte[r.Y + 1, r.X] is Route && !routesbloquees.Contains(carte[r.Y + 1, r.X] as Route)) temp.Add(carte[r.Y + 1, r.X] as Route);
+            if (r.PosX > 0 && carte[r.PosY, r.PosX - 1] is Route && !routesbloquees.Contains(carte[r.PosY, r.PosX - 1] as Route)) temp.Add(carte[r.PosY, r.PosX - 1] as Route);
+            if (r.PosY > 0 && carte[r.PosY - 1, r.PosX] is Route && !routesbloquees.Contains(carte[r.PosY - 1, r.PosX] as Route)) temp.Add(carte[r.PosY - 1, r.PosX] as Route);
+            if (r.PosX < taille - 1 && carte[r.PosY, r.PosX + 1] is Route && !routesbloquees.Contains(carte[r.PosY, r.PosX + 1] as Route)) temp.Add(carte[r.PosY, r.PosX + 1] as Route);
+            if (r.PosY < taille - 1 && carte[r.PosY + 1, r.PosX] is Route && !routesbloquees.Contains(carte[r.PosY + 1, r.PosX] as Route)) temp.Add(carte[r.PosY + 1, r.PosX] as Route);
 
             return temp;
         }

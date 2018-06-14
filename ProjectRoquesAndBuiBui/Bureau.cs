@@ -28,7 +28,7 @@ namespace ProjectRoquesAndBuiBui
 
         public override string ToString()
         {
-            return base.ToString()+"\nPlaces occupées : "+placesOccupees+"\nPlaces disponibles : "+placesDisponible+"\nMinimum d'occupation : "+minOccupation+"\nCoefficient de chance d'installation : "+coefInstallation+"\nPrix location : "+prixLocation;
+            return base.ToString() + "\nPlaces occupées : " + placesOccupees + "\nPlaces disponibles : " + placesDisponible + "\nMinimum d'occupation : " + minOccupation + "\nCoefficient de chance d'installation : " + coefInstallation + "\nPrix location : " + prixLocation;
         }
     }
 }

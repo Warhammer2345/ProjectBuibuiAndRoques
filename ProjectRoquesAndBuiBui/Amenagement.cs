@@ -15,6 +15,9 @@ namespace ProjectRoquesAndBuiBui
         int taille;
         ConsoleColor couleur;
         private static int globalIdAmenagement = 0;
+        int posX;
+        int posY;
+
         public Amenagement(string nom, int prix, int taille, ConsoleColor couleur)
         {
             this.nom = nom;
@@ -26,7 +29,7 @@ namespace ProjectRoquesAndBuiBui
         }
         public override string ToString()
         {
-            return "\nID Aménagement : "+idAmenagement+"\nnom : " + this.nom + "\nCouleur : " + this.Couleur;
+            return "\nID Aménagement : " + idAmenagement + "\nnom : " + nom + "\nCouleur : " + Couleur;
         }
 
         public object Clone()
@@ -46,5 +49,7 @@ namespace ProjectRoquesAndBuiBui
         public ConsoleColor Couleur { get => couleur; }
         public int IdAmenagement { get => idAmenagement; set => idAmenagement = value; }
         public int Prix { get => prix; }
+        public int PosX { get => posX; set => posX = value; }
+        public int PosY { get => posY; set => posY = value; }
     }
 }

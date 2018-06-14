@@ -18,7 +18,10 @@ namespace ProjectRoquesAndBuiBui
             Ville sebastopol = new Ville(5000000, 50, 50, 20,1.5,0.2);
             Thread gestion = new Thread(sebastopol.EvolutionVariablesParTour);
 
-            gestion.Start();
+            sebastopol.Map.Carte[5, 5] = new Route("sortie", 0, 1, ConsoleColor.Red, 0, 0, true);
+
+
+            //gestion.Start();
             while (true)
             {
                 

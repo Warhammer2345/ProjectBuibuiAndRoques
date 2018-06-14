@@ -8,12 +8,15 @@ namespace ProjectRoquesAndBuiBui
 {
     class Route : Amenagement, IComparable<Route>
     {
-        int x, y;
         bool estSortie;
-        public Route(string nom, int prix, int taille, ConsoleColor couleur, int x, int y, bool estSortie) : base(nom, prix, taille, couleur)
+        public Route(string nom, int prix, int taille, ConsoleColor couleur, int x, int y, bool estSortie) : this(nom, prix, taille, couleur, estSortie)
         {
-            this.x = x;
-            this.y = y;
+            PosX = x;
+            PosY = y;
+        }
+
+        public Route(string nom, int prix, int taille, ConsoleColor couleur, bool estSortie) : base(nom, prix, taille, couleur)
+        {
             this.estSortie = estSortie;
         }
 
@@ -25,18 +28,6 @@ namespace ProjectRoquesAndBuiBui
         public bool EstSortie
         {
             get { return estSortie; }
-        }
-
-        public int X
-        {
-            get { return x; }
-            set { x = value; }
-        }
-
-        public int Y
-        {
-            get { return y; }
-            set { y = value; }
         }
     }
 }

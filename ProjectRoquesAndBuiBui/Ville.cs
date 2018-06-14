@@ -90,9 +90,11 @@ namespace ProjectRoquesAndBuiBui
             get { return map; }
         }
 
+        public List<Amenagement> Amenagements { get => amenagements; }
+
         public void AjoutAmenagement(Amenagement a)
         {
-            if (a.Prix < argent)
+            if (a.Prix <= argent)
             {
                 if (a is Logement)
                 {
@@ -100,7 +102,6 @@ namespace ProjectRoquesAndBuiBui
                 }
                 amenagements.Add(a);
                 argent -= a.Prix;
-
             }
             else
             {
@@ -209,6 +210,7 @@ namespace ProjectRoquesAndBuiBui
             if (coefImpotOuvriere > 2) coefImpotOuvriere = 2;
             if (coefImpotOuvriere < 1) coefImpotOuvriere = 1;
         }
+       
         #region Méthode thread
         public void EvolutionVariablesParTour()
         {
@@ -622,7 +624,6 @@ namespace ProjectRoquesAndBuiBui
         #endregion
         private void AjoutLogement(Logement a)
         {
-
             if (a.Classe == ClasseSocial.ouvriere)
                 capaciteLogementOuvriere += a.CapaciteMax;
             else if (a.Classe == ClasseSocial.moyenne)
