@@ -56,9 +56,11 @@
     <Compile Include="Entreprise.cs" />
     <Compile Include="IEmployable.cs" />
     <Compile Include="IParametrable.cs" />
-    <Compile Include="Legislation.cs" />
     <Compile Include="Logement.cs" />
     <Compile Include="Loi.cs" />
+    <Compile Include="LoiEconomique.cs" />
+    <Compile Include="LoiSociale.cs" />
+    <Compile Include="LoiTouristique.cs" />
     <Compile Include="Marche.cs" />
     <Compile Include="Primaire.cs" />
     <Compile Include="Program.cs" />

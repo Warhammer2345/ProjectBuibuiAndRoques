@@ -45,5 +45,6 @@ namespace ProjectRoquesAndBuiBui
         public string Nom { get => nom; }
         public ConsoleColor Couleur { get => couleur; }
         public int IdAmenagement { get => idAmenagement; set => idAmenagement = value; }
+        public int Prix { get => prix; }
     }
 }

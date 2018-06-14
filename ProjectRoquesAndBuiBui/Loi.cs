@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectRoquesAndBuiBui
 {
-    delegate void EffetDeLaLoi();
+    delegate double EffetDeLaLoi();
 
     class Loi
     {
@@ -16,10 +16,10 @@ namespace ProjectRoquesAndBuiBui
         int coutMensuel;
         EffetDeLaLoi effetDeLaLoi;
 
-        public Loi(string nom, bool active, int prixLoi, int coutMensuel, EffetDeLaLoi effetDeLaLoi)
+        public Loi(string nom, int prixLoi, int coutMensuel, EffetDeLaLoi effetDeLaLoi)
         {
             this.nom = nom;
-            this.active = active;
+            this.active = false;
             this.prixLoi = prixLoi;
             this.coutMensuel = coutMensuel;
             this.effetDeLaLoi = effetDeLaLoi;

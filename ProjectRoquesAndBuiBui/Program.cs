@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ProjectRoquesAndBuiBui
@@ -14,11 +15,13 @@ namespace ProjectRoquesAndBuiBui
         static void Main(string[] args)
         {
             Catalogue test = new Catalogue();
-            Ville sebastopol = new Ville(5000000, 0, 0, 20,1.5,0.2);
+            Ville sebastopol = new Ville(5000000, 50, 50, 20,1.5,0.2);
+            Thread gestion = new Thread(sebastopol.EvolutionVariablesParTour);
 
-
+            gestion.Start();
             while (true)
             {
+                
                 Console.Clear();
                 Console.WriteLine("Que voulez vous faire Mr le Président ?");
                 Console.WriteLine("1 : Observer la carte");

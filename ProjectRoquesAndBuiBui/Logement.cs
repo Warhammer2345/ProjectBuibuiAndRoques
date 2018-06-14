@@ -24,6 +24,8 @@ namespace ProjectRoquesAndBuiBui
 
         public int MinOccupation { get => minOccupation;  }
         public int OccupationActuelle { get => occupationActuelle; set => occupationActuelle = value; }
+        public ClasseSocial Classe { get => classe;  }
+        public int CapaciteMax { get => capaciteMax; set => capaciteMax = value; }
 
         public override string ToString()
         {

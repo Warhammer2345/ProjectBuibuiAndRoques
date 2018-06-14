@@ -8,8 +8,14 @@ namespace ProjectRoquesAndBuiBui
 {
     class Culture :Tertiaire
     {
-        public Culture( int coutMensuel, string nom, int prix, int taille, ConsoleColor couleur) : base(coutMensuel, nom, prix, taille, couleur)
-        { }
+        int niveauCulture;
+        public Culture(int niveauCulture, int coutMensuel, string nom, int prix, int taille, ConsoleColor couleur) : base(coutMensuel, nom, prix, taille, couleur)
+        {
+            this.niveauCulture = niveauCulture;
+        }
+
+        public int NiveauCulture { get => niveauCulture; set => niveauCulture = value; }
+
         public override string ToString()
         {
             return base.ToString();
