@@ -84,7 +84,6 @@ namespace ProjectRoquesAndBuiBui
             }
             return (Amenagement)catalogue.Catalogues[lecture - 1].Clone();
         }
-
        
         public Terrain Map
         {

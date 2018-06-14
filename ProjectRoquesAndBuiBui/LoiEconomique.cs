@@ -8,11 +8,13 @@ namespace ProjectRoquesAndBuiBui
 {
     class LoiEconomique : Loi
     {
-        bool pontuel;
+        bool ponctuelle;
 
-        public LoiEconomique(string nom, int prixLoi, int coutMensuel, EffetDeLaLoi effetDeLaLoi) : base(nom, prixLoi, coutMensuel, effetDeLaLoi)
+        public LoiEconomique(string nom, int prixLoi, int coutMensuel, double coefMalus, double coefBonus, int prixAnnulation, int cycleMin, bool ponctuelle) : base(nom, prixLoi, coutMensuel, coefMalus, coefBonus, prixAnnulation, cycleMin)
         {
-
+            this.ponctuelle = ponctuelle;
         }
+
+        public bool Ponctuelle { get => ponctuelle; }
     }
 }
