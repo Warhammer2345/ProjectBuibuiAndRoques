@@ -14,6 +14,7 @@ namespace ProjectRoquesAndBuiBui
         int nbrEmployeMaxAise;
         int nbrEmployeMaxMoyenne;
         int nbrEmployeMaxOuvriere;
+        double coefOccupation;
 
         public Entreprise(int nbrEmployeMaxAise, int nbrEmployeMaxMoyenne, int nbrEmployeMaxOuvriere,int coutMensuel, string nom, int prix, int taille, ConsoleColor couleur) : base(coutMensuel, nom, prix, taille, couleur)
         {
@@ -23,6 +24,7 @@ namespace ProjectRoquesAndBuiBui
             this.nbrEmployeMaxAise = nbrEmployeMaxAise;
             this.nbrEmployeMaxMoyenne = nbrEmployeMaxMoyenne;
             this.nbrEmployeMaxOuvriere = nbrEmployeMaxOuvriere;
+            coefOccupation = 0;
         }
 
         public int NbrEmployeActuelAise { get => nbrEmployeActuelAise; set => nbrEmployeActuelAise = value; }
@@ -31,6 +33,7 @@ namespace ProjectRoquesAndBuiBui
         public int NbrEmployeMaxAise { get => nbrEmployeMaxAise; set => nbrEmployeMaxAise = value; }
         public int NbrEmployeMaxMoyenne { get => nbrEmployeMaxMoyenne; set => nbrEmployeMaxMoyenne = value; }
         public int NbrEmployeMaxOuvriere { get => nbrEmployeMaxOuvriere; set => nbrEmployeMaxOuvriere = value; }
+        public double CoefOccupation { get => coefOccupation; set => coefOccupation = value; }
 
         public override string ToString()
         {

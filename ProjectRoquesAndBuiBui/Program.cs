@@ -30,6 +30,8 @@ namespace ProjectRoquesAndBuiBui
                 Console.WriteLine("1 : Observer la carte");
                 Console.WriteLine("2 : Placer un batiment");
                 Console.WriteLine("3 : Modifier Impots");
+                Console.WriteLine("4 : Pause");
+                Console.WriteLine("5 : Play");
                 ConsoleKey key = Console.ReadKey(true).Key;
 
                 if (key == ConsoleKey.NumPad1)
@@ -43,6 +45,14 @@ namespace ProjectRoquesAndBuiBui
                 if(key == ConsoleKey.NumPad3)
                 {
                     sebastopol.ModifierImpots();
+                }
+                if(key == ConsoleKey.NumPad4)
+                {
+                    gestion.Suspend();
+                }
+                if(key==ConsoleKey.NumPad5)
+                {
+                    gestion.Resume();
                 }
             }
             

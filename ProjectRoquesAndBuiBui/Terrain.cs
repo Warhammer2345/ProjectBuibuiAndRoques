@@ -75,22 +75,29 @@ namespace ProjectRoquesAndBuiBui
                 {
                     if (dispo)
                     {
-                        PoserAmenagement(temp);
-                        Console.Clear();
-                        AfficherTerrain();
-                        v.AjoutAmenagement(temp);
-                        
-                        temp.PosX = posX;
-                        temp.PosY = posY;
-                        
-                        if(temp is Route)
+                        if (v.PeutAjouterAmenagement(temp))
                         {
-                            VerifierConnectionToutLesBatiments(v.Amenagements);
+                            PoserAmenagement(temp);
+                            Console.Clear();
+                            AfficherTerrain();
+
+                            temp.PosX = posX;
+                            temp.PosY = posY;
+
+                            if (temp is Logement)
+                            {
+                                v.AjoutLogement((temp as Logement));
+                            }
+                            if (temp is Route)
+                            {
+                                VerifierConnectionToutLesBatiments(v.Amenagements);
+                            }
+                            else
+                            {
+                                VerifierConnectionBatiment(temp);
+                            }
                         }
-                        else
-                        {
-                            VerifierConnectionBatiment(temp);
-                        }
+                        
                     }
 
                 }

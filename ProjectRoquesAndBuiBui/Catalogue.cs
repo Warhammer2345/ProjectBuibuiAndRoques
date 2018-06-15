@@ -20,7 +20,8 @@ namespace ProjectRoquesAndBuiBui
             catalogues.Add(new Bureau(20, 5, 2000, 10000, "Bureau 2000", 1000000, 2, ConsoleColor.Gray));
             catalogues.Add(new Logement(2500, ClasseSocial.moyenne, 0, 20000, "Pavillon", 2000000, 3, ConsoleColor.DarkMagenta));
             catalogues.Add(new Logement(600, ClasseSocial.aisee, 0, 40000, "Villa", 5000000, 2, ConsoleColor.DarkYellow));
-            catalogues.Add(new Primaire(6000, 10000, "Ferme", 3000000, 4, ConsoleColor.DarkRed));
+            catalogues.Add(new Logement(3000, ClasseSocial.ouvriere, 0, 20000, "Villa", 5000000, 2, ConsoleColor.DarkYellow));
+            catalogues.Add(new Primaire(500,100,50,6000, 10000, "Ferme", 3000000, 4, ConsoleColor.DarkRed));
             catalogues.Add(new Tourisme(8, 10000, "ardin Babylonne", 1000000, 1, ConsoleColor.DarkGreen));
             catalogues.Add(new Culture(10, 18000, "Ecole", 750000, 2, ConsoleColor.DarkRed));
             catalogues.Add(new Usine(80, 300, 1000, 0, "Usine", 5000000, 3, ConsoleColor.DarkBlue));

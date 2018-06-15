@@ -14,5 +14,6 @@ namespace ProjectRoquesAndBuiBui
         int NbrEmployeMaxAise { get; set; }
         int NbrEmployeMaxMoyenne { get; set; }
         int NbrEmployeMaxOuvriere { get; set; }
+        double CoefOccupation { get; set; }
     }
 }

@@ -15,6 +15,13 @@ namespace ProjectRoquesAndBuiBui
         private int populationAisee;
         private int populationMoyenne;
         private int populationOuvriere;
+        private int personneChomage;
+        int eauRestante;
+        int energieRestante;
+        int nourritureRestante;
+        private int personneChomageAisee;
+        private int personneChomageMoyenne;
+        private int personneChomageOuvriere;
         private int capaciteLogementAisee;
         private int capaciteLogementMoyenne;
         private int capaciteLogementOuvriere;
@@ -75,7 +82,7 @@ namespace ProjectRoquesAndBuiBui
         }
         public override string ToString()
         {
-            return "Argent : "+argent+"\nRevenu : "+revenu+"\nPopulation : "+population+"\nPopulation aisée : "+populationAisee+"\nPopulation moyenne : "+populationMoyenne+"\nPopulation ouvrière : "+populationOuvriere+"\nCapacité Logement : "+capaciteLogement+"\nCulture : "+culture+"\nAttractivité : "+attractivite+"\nEau Consomme : "+eauConsomme+"\nEnergie Consomme : "+energieConsomme+"\nBonheur : "+bonheur;
+            return "Argent : "+argent+"\nRevenu : "+revenu+"\nPopulation : "+population+"\nPopulation aisée : "+populationAisee+"\nPopulation moyenne : "+populationMoyenne+"\nPopulation ouvrière : "+populationOuvriere+"\nCapacité Logement : "+capaciteLogement+"\nCulture : "+culture+"\nAttractivité : "+attractivite+"\nEau Consomme : "+eauConsomme+"\nEnergie Consomme : "+energieConsomme+"\nBonheur : "+bonheur+"\nPersonne chômage : "+personneChomage+"\nNourriture : "+nourriture+"\nCoef Impot Aisée : "+coefImpotAisee;
         }
         Amenagement SelectionnerAmenagement()
         {
@@ -98,20 +105,19 @@ namespace ProjectRoquesAndBuiBui
 
         public List<Amenagement> Amenagements { get => amenagements; }
 
-        public void AjoutAmenagement(Amenagement a)
+        public bool PeutAjouterAmenagement(Amenagement a)
         {
             if (a.Prix <= argent)
             {
-                if (a is Logement)
-                {
-                    AjoutLogement((a as Logement));
-                }
                 amenagements.Add(a);
                 argent -= a.Prix;
+                return true;
             }
             else
             {
+                Console.SetCursorPosition(25, 0);
                 Console.WriteLine("Vous n'avez pas assez d'argent");
+                return false;
             }
         }
 
@@ -140,11 +146,11 @@ namespace ProjectRoquesAndBuiBui
             int cpt = 0;
             Console.Clear();
             Console.WriteLine("Impot Aisee : ");
-            AfficheSlideBar(1, coefImpotAisee, 2, 0.1);
+            AfficheSlideBar(0, coefImpotAisee, 1, 0.1);
             Console.WriteLine("Impot Moyenne : ");
-            AfficheSlideBar(1, coefImpotMoyenne, 2, 0.1);
+            AfficheSlideBar(0, coefImpotMoyenne, 1, 0.1);
             Console.WriteLine("Impot Ouvriere : ");
-            AfficheSlideBar(1, coefImpotOuvriere, 2, 0.1);
+            AfficheSlideBar(0, coefImpotOuvriere, 1, 0.1);
 
             while (continuer)
             {
@@ -176,11 +182,11 @@ namespace ProjectRoquesAndBuiBui
 
                 Console.Clear();
                 Console.WriteLine("Impot Aisee : ");
-                AfficheSlideBar(1, coefImpotAisee, 2, 0.1);
+                AfficheSlideBar(0, coefImpotAisee, 1, 0.1);
                 Console.WriteLine("Impot Moyenne : ");
-                AfficheSlideBar(1, coefImpotMoyenne, 2, 0.1);
+                AfficheSlideBar(0, coefImpotMoyenne, 1, 0.1);
                 Console.WriteLine("Impot Ouvriere : ");
-                AfficheSlideBar(1, coefImpotOuvriere, 2, 0.1);
+                AfficheSlideBar(0, coefImpotOuvriere, 1, 0.1);
 
                
             }
@@ -206,14 +212,14 @@ namespace ProjectRoquesAndBuiBui
         void ChangeCoefImpot(int cpt, double value)
         {
             if (cpt == 0) coefImpotAisee += value;
-            if (coefImpotAisee > 2) coefImpotAisee = 2;
-            if (coefImpotAisee < 1) coefImpotAisee = 1;
+            if (coefImpotAisee > 1) coefImpotAisee = 1;
+            if (coefImpotAisee < 0) coefImpotAisee = 0;
             if (cpt == 1) coefImpotMoyenne += value;
-            if (coefImpotMoyenne > 2) coefImpotMoyenne = 2;
-            if (coefImpotMoyenne < 1) coefImpotMoyenne = 1;
+            if (coefImpotMoyenne > 1) coefImpotMoyenne = 1;
+            if (coefImpotMoyenne < 0) coefImpotMoyenne = 0;
             if (cpt == 2) coefImpotOuvriere += value;
-            if (coefImpotOuvriere > 2) coefImpotOuvriere = 2;
-            if (coefImpotOuvriere < 1) coefImpotOuvriere = 1;
+            if (coefImpotOuvriere > 1) coefImpotOuvriere = 1;
+            if (coefImpotOuvriere < 0) coefImpotOuvriere = 0;
         }
        
         #region Méthode thread
@@ -221,16 +227,16 @@ namespace ProjectRoquesAndBuiBui
         {
             while (true)
             {
-
+                CalculerPopulation();
+                CalculChomage();
                 CalculConsommation();
                 CalculCulture();
                 CalculAttractivite();
                 CalculRevenu();
-                CalculerPopulation();
                 CalculBonheur();
                 Console.SetCursorPosition(0, 22);
                 Console.WriteLine(ToString());
-                Thread.Sleep(1000);
+                Thread.Sleep(10000);
             }
         }
         #region Calcul Revenu par tour
@@ -309,7 +315,7 @@ namespace ProjectRoquesAndBuiBui
             if (batisse is Bureau)
                 recette += (batisse as Bureau).PlacesOccupees * (batisse as Bureau).PrixLocation;
             else if (batisse is Usine)
-                recette += 2000;
+                recette += 15000 * (batisse as Usine).CoefOccupation;
             else if (batisse is Commercant)
                 recette += (batisse as Commercant).ProduitVendu * (batisse as Commercant).PrixVente * 0.2;
             else if (batisse is CompagnieTransport)
@@ -331,9 +337,9 @@ namespace ProjectRoquesAndBuiBui
         private double ImpotParticulier()
         {
             double recette = 0;
-            recette += populationAisee * 8500 * coefImpotAisee;
-            recette += populationMoyenne * 3500 * coefImpotMoyenne;
-            recette += populationOuvriere * 1500 * coefImpotOuvriere;
+            recette += (populationAisee - personneChomageAisee) * 8500 * coefImpotAisee;
+            recette += (populationMoyenne - personneChomageMoyenne) * 3500 * coefImpotMoyenne;
+            recette += (populationOuvriere - personneChomageOuvriere) * 1500 * coefImpotOuvriere;
             return recette;
         }
 
@@ -359,6 +365,99 @@ namespace ProjectRoquesAndBuiBui
 
         }
         #endregion
+
+        private void CalculUtilisationProduction()
+        {
+            eauRestante = Convert.ToInt32(eauConsomme);
+            energieRestante = Convert.ToInt32(energieConsomme);
+            nourritureRestante = nourriture;
+            foreach(Amenagement a in amenagements)
+            {
+                if (a is CompagnieEau)
+                    eauRestante = (a as CompagnieEau).EauUtilisee(eauRestante);
+                if (a is CompagnieElectricite)
+                    energieRestante = (a as CompagnieElectricite).EnergieUtilisee(energieRestante);
+                if (a is Primaire)
+                    nourritureRestante = (a as Primaire).NourritureUtilisee(nourritureRestante);
+            }
+
+        }
+        private void CalculChomage()
+        {
+            int nombreEmployeAisee = 0;
+            int nombreEmployeeMoyenne = 0;
+            int nombreEmployeeOuvriere = 0;
+            int populationAiseeRestante = populationAisee;
+            int populationMoyenneRestante = populationMoyenne;
+            int populationOuvriereRestante = populationOuvriere;
+            foreach(Amenagement a in amenagements)
+            {
+                if(a is IEmployable)
+                {
+                    if(populationAiseeRestante> (a as IEmployable).NbrEmployeMaxAise)
+                    {
+                        (a as IEmployable).NbrEmployeActuelAise = (a as IEmployable).NbrEmployeMaxAise;
+                        populationAiseeRestante -= (a as IEmployable).NbrEmployeActuelAise;
+                        (a as IEmployable).CoefOccupation = 1 * (a as IEmployable).NbrEmployeMaxAise / ((a as IEmployable).NbrEmployeMaxAise + (a as IEmployable).NbrEmployeMaxMoyenne + (a as IEmployable).NbrEmployeMaxOuvriere);
+                        
+                    }
+                    else if(populationAiseeRestante>0)
+                    {
+                        (a as IEmployable).NbrEmployeActuelAise = populationAiseeRestante;
+                        populationAiseeRestante = 0;
+                        (a as IEmployable).CoefOccupation=((a as IEmployable).NbrEmployeActuelAise/ (a as IEmployable).NbrEmployeMaxAise)* (a as IEmployable).NbrEmployeMaxAise / ((a as IEmployable).NbrEmployeMaxAise + (a as IEmployable).NbrEmployeMaxMoyenne + (a as IEmployable).NbrEmployeMaxOuvriere);
+                    }
+                    else
+                    {
+                        (a as IEmployable).CoefOccupation = 0;
+                        (a as IEmployable).NbrEmployeActuelAise = 0;
+                    }
+                    if (populationMoyenneRestante > (a as IEmployable).NbrEmployeMaxMoyenne)
+                    {
+                        (a as IEmployable).NbrEmployeActuelMoyenne = (a as IEmployable).NbrEmployeMaxMoyenne;
+                        populationMoyenneRestante -= (a as IEmployable).NbrEmployeActuelMoyenne;
+                        (a as IEmployable).CoefOccupation += 1 * (a as IEmployable).NbrEmployeMaxMoyenne / ((a as IEmployable).NbrEmployeMaxAise + (a as IEmployable).NbrEmployeMaxMoyenne + (a as IEmployable).NbrEmployeMaxOuvriere);
+
+                    }
+                    else if (populationMoyenneRestante > 0)
+                    {
+                        (a as IEmployable).NbrEmployeActuelMoyenne = populationMoyenneRestante;
+                        populationMoyenneRestante = 0;
+                        (a as IEmployable).CoefOccupation += ((a as IEmployable).NbrEmployeActuelMoyenne / (a as IEmployable).NbrEmployeMaxAise) * (a as IEmployable).NbrEmployeMaxAise / ((a as IEmployable).NbrEmployeMaxAise + (a as IEmployable).NbrEmployeMaxMoyenne + (a as IEmployable).NbrEmployeMaxOuvriere);
+                    }
+                    else
+                    {
+                        (a as IEmployable).NbrEmployeActuelMoyenne = 0;
+                    }
+                    if (populationOuvriereRestante > (a as IEmployable).NbrEmployeMaxOuvriere)
+                    {
+                        (a as IEmployable).NbrEmployeActuelOuvriere = (a as IEmployable).NbrEmployeMaxOuvriere;
+                        populationOuvriereRestante -= (a as IEmployable).NbrEmployeActuelOuvriere;
+                        (a as IEmployable).CoefOccupation += 1 * (a as IEmployable).NbrEmployeActuelOuvriere / ((a as IEmployable).NbrEmployeMaxAise + (a as IEmployable).NbrEmployeMaxMoyenne + (a as IEmployable).NbrEmployeMaxOuvriere);
+
+                    }
+                    else if (populationOuvriereRestante > 0)
+                    {
+                        (a as IEmployable).NbrEmployeActuelOuvriere = populationOuvriereRestante;
+                        populationOuvriereRestante = 0;
+                        (a as IEmployable).CoefOccupation += ((a as IEmployable).NbrEmployeActuelOuvriere / (a as IEmployable).NbrEmployeMaxAise) * (a as IEmployable).NbrEmployeMaxAise / ((a as IEmployable).NbrEmployeMaxAise + (a as IEmployable).NbrEmployeMaxMoyenne + (a as IEmployable).NbrEmployeMaxOuvriere);
+                    }
+                    else
+                    {
+                        (a as IEmployable).NbrEmployeActuelOuvriere = 0;
+                    }
+
+                    nombreEmployeAisee += (a as IEmployable).NbrEmployeActuelAise;
+                    nombreEmployeeMoyenne += (a as IEmployable).NbrEmployeActuelMoyenne;
+                    nombreEmployeeOuvriere += (a as IEmployable).NbrEmployeActuelOuvriere;
+                }
+
+            }
+            personneChomageAisee = populationAisee - nombreEmployeAisee;
+            personneChomageMoyenne = populationMoyenne - nombreEmployeeMoyenne;
+            personneChomageOuvriere = populationOuvriere - nombreEmployeeOuvriere;
+            personneChomage = personneChomageAisee + personneChomageMoyenne + personneChomageOuvriere;
+        }
         /// <summary>
         /// Calcule la consommation de la population en eau, electrecité et nourriture
         /// </summary>
@@ -370,7 +469,7 @@ namespace ProjectRoquesAndBuiBui
         }
         private void CalculBonheur()
         {
-            if (population >1000)
+            if (population >100)
             {
                 bonheur = 0;
                 //Bonheur en fonction de la nourriture
@@ -381,12 +480,12 @@ namespace ProjectRoquesAndBuiBui
                 else
                     bonheur += 10;
                 //Bonheur en fonction de l'eau
-                if (eauConsomme == 0)//La population ne veut pas gâcher
+                if (eauRestante == 0)//La population ne veut pas gâcher
                     bonheur += 15;
                 else
                     bonheur += 0;
                 //Bonheur en fonction de l'electricité
-                if (energieConsomme == 0)//La population ne veut pas gâcher
+                if (energieRestante == 0)//La population ne veut pas gâcher
                     bonheur += 10;
                 else
                     bonheur += 0;
@@ -417,22 +516,33 @@ namespace ProjectRoquesAndBuiBui
         private void CalculBonheurParClasse()
         {
         
-            bonheurAisee=bonheur+20* (1 - Math.Sqrt(coefImpotAisee));
-            bonheurMoyenne = bonheur + 20 * (1 - Math.Sqrt(coefImpotMoyenne));
-            bonheurOuvriere = bonheur + 20 * (1 - Math.Sqrt(coefImpotOuvriere));
+            bonheurAisee=bonheur+15* (1 - Math.Sqrt(coefImpotAisee));
+            bonheurMoyenne = bonheur + 15 * (1 - Math.Sqrt(coefImpotMoyenne));
+            bonheurOuvriere = bonheur + 15 * (1 - Math.Sqrt(coefImpotOuvriere));
             if (capaciteLogementAisee > populationAisee)
-                bonheurAisee += 15;
+                bonheurAisee += 20;
             else if (capaciteLogementAisee > populationAisee * 0.98)
-                bonheurAisee += 7.5;
+                bonheurAisee += 10;
             if (capaciteLogementMoyenne > populationMoyenne)
-                bonheurMoyenne += 15;
+                bonheurMoyenne += 20;
             else if (capaciteLogementMoyenne > populationMoyenne * 0.98)
-                bonheurMoyenne += 7.5;
+                bonheurMoyenne += 10;
             if (capaciteLogementOuvriere > populationOuvriere)
-                bonheurOuvriere += 15;
+                bonheurOuvriere += 20;
             else if (capaciteLogementOuvriere > populationOuvriere * 0.9)
-                bonheurOuvriere += 7.5;
-            
+                bonheurOuvriere += 10;
+            if(populationAisee!=0)
+            bonheurAisee = bonheurAisee * (1 - personneChomageAisee / populationAisee) * 1.05;
+            if(populationMoyenne!=0)
+            bonheurMoyenne = bonheurMoyenne * (1 - personneChomageMoyenne / populationMoyenne) * 1.05;
+            if(populationOuvriere!=0)
+            bonheurOuvriere = bonheurOuvriere * (1 - personneChomageOuvriere / populationOuvriere) * 1.05;
+            if (bonheurAisee > 100)
+                bonheurAisee = 100;
+            if (bonheurMoyenne > 100)
+                bonheurMoyenne = 100;
+            if (bonheurOuvriere > 100)
+                bonheurOuvriere = 100;
             double proportionPopAisee = Convert.ToDouble(populationAisee) / Convert.ToDouble((population+1));
             double proportionPopMoyenne = Convert.ToDouble(populationMoyenne) / Convert.ToDouble(population+1);
             double proportionPopOuvriere = 1 - proportionPopAisee - proportionPopMoyenne;
@@ -557,7 +667,7 @@ namespace ProjectRoquesAndBuiBui
                 populationAisee = populationAisee * (18 / 19);
                 populationMoyenne = populationMoyenne * (24 / 25);
                 populationOuvriere = populationOuvriere * (24 / 25);
-                population = populationAisee + populationMoyenne + populationOuvriere;
+
             }
             else if(bonheur<30)
             {
@@ -565,13 +675,14 @@ namespace ProjectRoquesAndBuiBui
                 populationAisee = populationAisee *(13/16);
                 populationMoyenne = populationMoyenne * (15/16);
                 populationOuvriere = populationOuvriere * (15/16);
-                population = populationAisee + populationMoyenne + populationOuvriere;
+
             }
+            population = populationAisee + populationMoyenne + populationOuvriere;
             CalculPopulationParClasse();
         }
         private void CalculPopulationParClasse()
         {
-            if (bonheurAisee < 60 && bonheurAisee > 40)
+            if (bonheurAisee < 50 && bonheurAisee > 40)
                 populationAisee = populationAisee * (13 / 16);
             else if (bonheurAisee < 40)
                 populationAisee = populationAisee * (2 / 3);
@@ -658,18 +769,18 @@ namespace ProjectRoquesAndBuiBui
             }
             if(compteur!=0)
             coefMultiplicateur = sommeMultiplicateur / compteur;//Récupère le coef d'attractivité de la ville en elle-même (chiffre compris entre 0 et 1)
-            attractivite = 50 * coefMultiplicateur;//Représente la moitié du pourcentage d'attractivité
+            culture = 50 * coefMultiplicateur;//Représente la moitié du pourcentage d'attractivité
 
             //On considère qu'une ville est très attractive lorsqu'elle a un niveau de tourisme pour 500 habitants
             double inter = ((population + 500) / 500);//On récupère le nombre de paquets de 500 habitants que l'on a et on a rajouté 500 pour les cas de début de partie
             if (inter < niveauCulture)//S'il y a plus d'un niveau de tourisme pour 500 habitants
-                attractivite += 50;//La ville est très attractive de ceux point de vue
+                culture += 50;//La ville est très attractive de ceux point de vue
             else if (inter != 0)
-                attractivite += 50 * (niveauCulture / inter);
+                culture += 50 * (niveauCulture / inter);
 
         }
         #endregion
-        private void AjoutLogement(Logement a)
+        public void AjoutLogement(Logement a)
         {
             if (a.Classe == ClasseSocial.ouvriere)
                 capaciteLogementOuvriere += a.CapaciteMax;

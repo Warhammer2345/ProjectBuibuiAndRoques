@@ -16,6 +16,7 @@ namespace ProjectRoquesAndBuiBui
         int nbrEmployeMaxOuvriere;
         int produitVendu;
         int prixVente;
+        double coefOccupation;
         public Commercant(int nbrEmployeMaxAise, int nbrEmployeMaxMoyenne, int nbrEmployeMaxOuvriere,int coutMensuel, string nom, int prix, int taille, ConsoleColor couleur) : base(coutMensuel, nom, prix, taille, couleur)
         {
             this.nbrEmployeActuelAise = 0;
@@ -25,6 +26,7 @@ namespace ProjectRoquesAndBuiBui
             this.nbrEmployeMaxMoyenne = nbrEmployeMaxMoyenne;
             this.nbrEmployeMaxOuvriere = nbrEmployeMaxOuvriere;
             produitVendu = 0;
+            this.coefOccupation = 0;
             prixVente = 10;
         }
         public int NbrEmployeActuelAise { get => nbrEmployeActuelAise; set => nbrEmployeActuelAise = value; }
@@ -35,6 +37,7 @@ namespace ProjectRoquesAndBuiBui
         public int NbrEmployeMaxOuvriere { get => nbrEmployeMaxOuvriere; set => nbrEmployeMaxOuvriere = value; }
         public int ProduitVendu { get => produitVendu; set => produitVendu = value; }
         public int PrixVente { get => prixVente; set => prixVente = value; }
+        public double CoefOccupation { get => coefOccupation; set => coefOccupation = value; }
 
         public override string ToString()
         {
