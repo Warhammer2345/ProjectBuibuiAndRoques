@@ -13,11 +13,12 @@ namespace ProjectRoquesAndBuiBui
         int productionMin;
         int productionMax;
 
-        public CompagnieElectricite(int energieProduite, int NbrEmployeMaxAise, int NbrEmployeMaxMoyenne, int NbrEmployeMaxOuvriere, int coutMensuel, string nom, int prix, int taille, ConsoleColor couleur) : base(NbrEmployeMaxAise, NbrEmployeMaxMoyenne, NbrEmployeMaxOuvriere, coutMensuel, nom, prix, taille, couleur)
+        public CompagnieElectricite(int productionMax, int NbrEmployeMaxAise, int NbrEmployeMaxMoyenne, int NbrEmployeMaxOuvriere, int coutMensuel, string nom, int prix, int taille, ConsoleColor couleur) : base(NbrEmployeMaxAise, NbrEmployeMaxMoyenne, NbrEmployeMaxOuvriere, coutMensuel, nom, prix, taille, couleur)
         {
-            this.energieProduite = energieProduite;
+            this.energieProduite = productionMax/2;
             productionMax = 10000;
             productionMin = 0;
+            this.productionMax = productionMax;
         }
 
         public int EnergieProduite { get => energieProduite; set => energieProduite = value; }

@@ -15,13 +15,13 @@ namespace ProjectRoquesAndBuiBui
         static void Main(string[] args)
         {
             Catalogue test = new Catalogue();
-            Ville sebastopol = new Ville(5000000, 50, 50, 20,1.5,0.2);
+            Ville sebastopol = new Ville(5000000, 50, 50, 20,1.5,0.2,3,1600);
             Thread gestion = new Thread(sebastopol.EvolutionVariablesParTour);
 
             sebastopol.Map.Carte[5, 5] = new Route("sortie", 0, 1, ConsoleColor.Red, 0, 0, true);
 
 
-            //gestion.Start();
+            gestion.Start();
             while (true)
             {
                 

@@ -248,7 +248,7 @@ namespace ProjectRoquesAndBuiBui
 
         void AfficherInfoAmenagement()
         {
-            Console.SetCursorPosition(0, 25);
+            Console.SetCursorPosition(0, 32);
             if (carte[posY, posX] != null)
             {
                 Console.WriteLine(carte[posY, posX]);

@@ -5,3 +5,10 @@ C:\Users\Valentin Buisson\Desktop\Nouveau dossier (2)\ProjectRoquesAndBuiBui\bin
 C:\Users\Valentin Buisson\Desktop\Nouveau dossier (2)\ProjectRoquesAndBuiBui\bin\Debug\ProjectRoquesAndBuiBui.pdb
 C:\Users\Valentin Buisson\Desktop\Nouveau dossier (2)\ProjectRoquesAndBuiBui\obj\Debug\ProjectRoquesAndBuiBui.exe
 C:\Users\Valentin Buisson\Desktop\Nouveau dossier (2)\ProjectRoquesAndBuiBui\obj\Debug\ProjectRoquesAndBuiBui.pdb
+D:\Utilisateurs\sebas\Documents\ESILV\Projet buibui and rock\ProjectRoquesAndBuiBui\ProjectRoquesAndBuiBui\obj\Debug\ProjectRoquesAndBuiBui.csprojAssemblyReference.cache
+D:\Utilisateurs\sebas\Documents\ESILV\Projet buibui and rock\ProjectRoquesAndBuiBui\ProjectRoquesAndBuiBui\obj\Debug\ProjectRoquesAndBuiBui.csproj.CoreCompileInputs.cache
+D:\Utilisateurs\sebas\Documents\ESILV\Projet buibui and rock\ProjectRoquesAndBuiBui\ProjectRoquesAndBuiBui\obj\Debug\ProjectRoquesAndBuiBui.pdb
+D:\Utilisateurs\sebas\Documents\ESILV\Projet buibui and rock\ProjectRoquesAndBuiBui\ProjectRoquesAndBuiBui\bin\Debug\ProjectRoquesAndBuiBui.exe.config
+D:\Utilisateurs\sebas\Documents\ESILV\Projet buibui and rock\ProjectRoquesAndBuiBui\ProjectRoquesAndBuiBui\bin\Debug\ProjectRoquesAndBuiBui.exe
+D:\Utilisateurs\sebas\Documents\ESILV\Projet buibui and rock\ProjectRoquesAndBuiBui\ProjectRoquesAndBuiBui\bin\Debug\ProjectRoquesAndBuiBui.pdb
+D:\Utilisateurs\sebas\Documents\ESILV\Projet buibui and rock\ProjectRoquesAndBuiBui\ProjectRoquesAndBuiBui\obj\Debug\ProjectRoquesAndBuiBui.exe

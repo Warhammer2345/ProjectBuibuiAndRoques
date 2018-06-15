@@ -58,6 +58,7 @@
     <Compile Include="IParametrable.cs" />
     <Compile Include="Logement.cs" />
     <Compile Include="Loi.cs" />
+    <Compile Include="LoiCulturel.cs" />
     <Compile Include="LoiEconomique.cs" />
     <Compile Include="LoiSociale.cs" />
     <Compile Include="LoiTourisme.cs" />

@@ -13,12 +13,12 @@ namespace ProjectRoquesAndBuiBui
         double nivBonheur;
         int minOccupation;//En dessous de cette valeur, l'état paye des charges pour l'entretien
         int occupationActuelle;
-        public Logement(int capaciteMax, ClasseSocial classe, double nivBonheur, int minOccupation,int coutMensuel, string nom, int prix, int taille, ConsoleColor couleur) : base(coutMensuel, nom, prix, taille, couleur)
+        public Logement(int capaciteMax, ClasseSocial classe, double nivBonheur ,int coutMensuel, string nom, int prix, int taille, ConsoleColor couleur) : base(coutMensuel, nom, prix, taille, couleur)
         {
             this.capaciteMax = capaciteMax;
             this.classe = classe;
             this.nivBonheur = nivBonheur;
-            this.minOccupation = minOccupation;
+            this.minOccupation = capaciteMax/4;
             this.occupationActuelle = 0;
         }
 

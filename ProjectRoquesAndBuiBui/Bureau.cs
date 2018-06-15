@@ -13,7 +13,7 @@ namespace ProjectRoquesAndBuiBui
         int minOccupation;
         double coefInstallation;
         double prixLocation;
-        public Bureau(int placesDisponible, int placesOccupees, int minOccupation, double prixLocation,int coutMensuel, string nom, int prix, int taille, ConsoleColor couleur) : base(coutMensuel, nom, prix, taille, couleur)
+        public Bureau(int placesDisponible, int minOccupation, double prixLocation,int coutMensuel, string nom, int prix, int taille, ConsoleColor couleur) : base(coutMensuel, nom, prix, taille, couleur)
         {
             this.placesDisponible = placesDisponible;
             this.placesOccupees = placesOccupees;

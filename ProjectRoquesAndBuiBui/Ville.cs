@@ -10,6 +10,7 @@ namespace ProjectRoquesAndBuiBui
     class Ville
     {
         private double argent;
+        private double revenu;
         private int population;
         private int populationAisee;
         private int populationMoyenne;
@@ -17,6 +18,8 @@ namespace ProjectRoquesAndBuiBui
         private int capaciteLogementAisee;
         private int capaciteLogementMoyenne;
         private int capaciteLogementOuvriere;
+        private double eauConsommeParPersonne;
+        private double energieConsommeParPersonne;
         private double attractivite;//entre 0 et 100
         private double culture;//entre 0 et 100
         private double bonheur;//entre 0 et 100
@@ -40,9 +43,11 @@ namespace ProjectRoquesAndBuiBui
         private Catalogue catalogue;
         private Terrain map;
 
-        public Ville(double argent, double attractivite, double bonheur,int taille, double valEau,double valElectricite)
+        public Ville(double argent, double attractivite, double bonheur,int taille, double valEau,double valElectricite, double eauConsommeParPersonne, double energieConsommeParPersonne)
         {
             this.argent = argent;
+            this.eauConsommeParPersonne = eauConsommeParPersonne;
+            this.energieConsommeParPersonne = energieConsommeParPersonne;
             this.population = 0;
             this.capaciteLogement = 0;
             this.attractivite = attractivite;
@@ -57,6 +62,7 @@ namespace ProjectRoquesAndBuiBui
             this.populationAisee = 0;
             this.populationMoyenne = 0;
             this.populationOuvriere = 0;
+            this.revenu = 0;
             this.culture = 0;
             this.impotParCycle = 0;
             this.depenseParCycle = 0;
@@ -69,7 +75,7 @@ namespace ProjectRoquesAndBuiBui
         }
         public override string ToString()
         {
-            return "Argent : "+argent+"\nPopulation : "+population+"\nCapacité Logement : "+capaciteLogement+"\nCulture : "+culture+"\nAttractivité : "+attractivite;
+            return "Argent : "+argent+"\nRevenu : "+revenu+"\nPopulation : "+population+"\nPopulation aisée : "+populationAisee+"\nPopulation moyenne : "+populationMoyenne+"\nPopulation ouvrière : "+populationOuvriere+"\nCapacité Logement : "+capaciteLogement+"\nCulture : "+culture+"\nAttractivité : "+attractivite+"\nEau Consomme : "+eauConsomme+"\nEnergie Consomme : "+energieConsomme+"\nBonheur : "+bonheur;
         }
         Amenagement SelectionnerAmenagement()
         {
@@ -127,8 +133,7 @@ namespace ProjectRoquesAndBuiBui
         {
             map.ObserverLaCarte(this);
         }
-
-        
+      
         public void ModifierImpots()
         {
             bool continuer = true;
@@ -217,14 +222,15 @@ namespace ProjectRoquesAndBuiBui
             while (true)
             {
 
-
+                CalculConsommation();
                 CalculCulture();
                 CalculAttractivite();
                 CalculRevenu();
                 CalculerPopulation();
                 CalculBonheur();
+                Console.SetCursorPosition(0, 22);
                 Console.WriteLine(ToString());
-                Thread.Sleep(10000);
+                Thread.Sleep(1000);
             }
         }
         #region Calcul Revenu par tour
@@ -234,7 +240,7 @@ namespace ProjectRoquesAndBuiBui
         /// <returns></returns>
         public void CalculRevenu()
         {
-            double revenu = 0;
+            revenu = 0;
             foreach (Amenagement a in amenagements)
             {
                 revenu -= CoutEntretien(a);
@@ -245,6 +251,7 @@ namespace ProjectRoquesAndBuiBui
             revenu -= CoutMensuelLoi();
             revenu += ImpotParticulier();
             argent += revenu;
+
         }
 
         private int CoutEntretien(Amenagement batisse)
@@ -253,7 +260,7 @@ namespace ProjectRoquesAndBuiBui
             if (batisse is Bureau)
             {
                 if ((batisse as Bureau).MinOccupation > (batisse as Bureau).PlacesOccupees)
-                    revenu += (batisse as Bureau).CoutMensuel;
+                    revenu += (batisse as Bureau).CoutMensuel*((batisse as Bureau).MinOccupation-(batisse as Bureau).PlacesOccupees);
 
             }
             else if (batisse is Logement)
@@ -280,6 +287,8 @@ namespace ProjectRoquesAndBuiBui
                 depense += (batisse as CompagnieElectricite).EnergieProduite * 0.10;
             else if (batisse is CompagnieTransport)
                 depense += (batisse as CompagnieTransport).NombreTransport * 200;
+            else if (batisse is Primaire)
+                depense += (batisse as Primaire).NourritureFabrique * 520;
             return depense;
         }
 
@@ -341,13 +350,27 @@ namespace ProjectRoquesAndBuiBui
                 recette += ((batisse as CompagnieEau).EauProduite - (batisse as CompagnieEau).EauRestante) * marcheFinancier.Eau;
                 (batisse as CompagnieEau).EauRestante = 0;
             }
+            else if(batisse is Primaire)
+            {
+                recette += ((batisse as Primaire).NourritureFabrique - (batisse as Primaire).NourritureRestante) * 570;
+                (batisse as Primaire).NourritureRestante = 0;
+            }
             return recette;
 
         }
         #endregion
+        /// <summary>
+        /// Calcule la consommation de la population en eau, electrecité et nourriture
+        /// </summary>
+        private void CalculConsommation()
+        {
+            nourriture = population;
+            energieConsomme = population * energieConsommeParPersonne;
+            eauConsomme = population * eauConsommeParPersonne;
+        }
         private void CalculBonheur()
         {
-            if (population != 0)
+            if (population >1000)
             {
                 bonheur = 0;
                 //Bonheur en fonction de la nourriture
@@ -371,8 +394,22 @@ namespace ProjectRoquesAndBuiBui
                 bonheur += culture * 0.15;
                 //Bonheur en fonction la culture
                 bonheur += attractivite * 0.05;
-                //Bonheur en fonction des impots et du bonheur par classe
+                foreach(Loi a in lois)
+                {
+                    if(a is LoiSociale)
+                    {
+                        bonheur = bonheur * a.CoefBonus;//Si la loi a un effet bénéfique
+                        bonheur = bonheur * a.CoefMalus;//Si la loi a un effet mauvais
+                    }
+                }
                 CalculBonheurParClasse();
+            }
+            else
+            {
+                bonheur = 51;
+                bonheurAisee = 51;
+                bonheurMoyenne = 51;
+                bonheurOuvriere = 51;
             }
 
 
@@ -530,6 +567,7 @@ namespace ProjectRoquesAndBuiBui
                 populationOuvriere = populationOuvriere * (15/16);
                 population = populationAisee + populationMoyenne + populationOuvriere;
             }
+            CalculPopulationParClasse();
         }
         private void CalculPopulationParClasse()
         {
@@ -551,6 +589,7 @@ namespace ProjectRoquesAndBuiBui
                 populationOuvriere = populationOuvriere * (3 / 4);
             else if (bonheurOuvriere > 70)
                 populationOuvriere = populationOuvriere * (9 / 7);
+            population = populationOuvriere + populationMoyenne + populationAisee;
         }
         private void CalculAttractivite()
         {
@@ -584,6 +623,14 @@ namespace ProjectRoquesAndBuiBui
                 attractivite += 50;//La ville est très attractive de ceux point de vue
             else if (inter != 0)
                 attractivite += 50 * (niveauTourisme / inter);
+            foreach(Loi a in lois)
+            {
+                if(a is LoiTourisme)
+                {
+                    attractivite = a.CoefMalus * attractivite;
+                    attractivite = a.CoefBonus * attractivite;
+                }
+            }
 
         }
 

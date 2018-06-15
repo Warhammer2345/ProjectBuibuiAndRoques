@@ -16,11 +16,11 @@ namespace ProjectRoquesAndBuiBui
         int nbrEmployeMaxOuvriere;
         int produitVendu;
         int prixVente;
-        public Commercant(int nbrEmployeActuelAise, int nbrEmployeActuelMoyenne, int nbrEmployeActuelOuvriere, int nbrEmployeMaxAise, int nbrEmployeMaxMoyenne, int nbrEmployeMaxOuvriere,int coutMensuel, string nom, int prix, int taille, ConsoleColor couleur) : base(coutMensuel, nom, prix, taille, couleur)
+        public Commercant(int nbrEmployeMaxAise, int nbrEmployeMaxMoyenne, int nbrEmployeMaxOuvriere,int coutMensuel, string nom, int prix, int taille, ConsoleColor couleur) : base(coutMensuel, nom, prix, taille, couleur)
         {
-            this.nbrEmployeActuelAise = nbrEmployeActuelAise;
-            this.nbrEmployeActuelMoyenne = nbrEmployeActuelMoyenne;
-            this.nbrEmployeActuelOuvriere = nbrEmployeActuelOuvriere;
+            this.nbrEmployeActuelAise = 0;
+            this.nbrEmployeActuelMoyenne = 0;
+            this.nbrEmployeActuelOuvriere = 0;
             this.nbrEmployeMaxAise = nbrEmployeMaxAise;
             this.nbrEmployeMaxMoyenne = nbrEmployeMaxMoyenne;
             this.nbrEmployeMaxOuvriere = nbrEmployeMaxOuvriere;

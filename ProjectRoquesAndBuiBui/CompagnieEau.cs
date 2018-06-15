@@ -13,11 +13,11 @@ namespace ProjectRoquesAndBuiBui
         int productionMin;
         int productionMax;
 
-        public CompagnieEau(int eauProduite, int NbrEmployeMaxAise, int NbrEmployeMaxMoyenne, int NbrEmployeMaxOuvriere, int coutMensuel, string nom, int prix, int taille, ConsoleColor couleur) : base(NbrEmployeMaxAise, NbrEmployeMaxMoyenne, NbrEmployeMaxOuvriere, coutMensuel, nom, prix, taille, couleur)
+        public CompagnieEau(int productionMax, int NbrEmployeMaxAise, int NbrEmployeMaxMoyenne, int NbrEmployeMaxOuvriere, int coutMensuel, string nom, int prix, int taille, ConsoleColor couleur) : base(NbrEmployeMaxAise, NbrEmployeMaxMoyenne, NbrEmployeMaxOuvriere, coutMensuel, nom, prix, taille, couleur)
         {
-            this.eauProduite = eauProduite;
+            this.eauProduite = productionMax/2;
             this.eauRestante = 0;
-            productionMax = 10000;
+            this.productionMax = productionMax;
             productionMin = 0;
         }
 
@@ -30,9 +30,9 @@ namespace ProjectRoquesAndBuiBui
         }
 
         /// <summary>
-        /// Prend en paramètre l'eau nécessaire et déduit l'eau produite par la pompe
+        /// Retourne l'eau encore nécessaire à prélever dans d'autres compagnies
         /// </summary>
-        /// <param name="eauNecessaire">Retourne l'eau encore nécessaire à prélever dans d'autres compagnies</param>
+        /// <param name="eauNecessaire">Prend en paramètre l'eau nécessaire et déduit l'eau produite par la pompe</param>
         /// <returns></returns>
         public int EauUtilisee(int eauNecessaire)
         {
