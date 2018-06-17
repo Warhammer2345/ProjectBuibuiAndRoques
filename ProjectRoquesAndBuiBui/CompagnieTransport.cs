@@ -12,7 +12,7 @@ namespace ProjectRoquesAndBuiBui
         int capaciteTransport;
         double prixTransport;
         int frequentation;
-        public CompagnieTransport(int nombreTransport, int capaciteTransport,double prixTransport, int frequentation, int coutMensuel, string nom, int prix, int taille, ConsoleColor couleur) : base(coutMensuel, nom, prix, taille, couleur)
+        public CompagnieTransport(int nombreTransport, int capaciteTransport,double prixTransport, int frequentation, int coutMensuel, string nom, int prix, int taille, ConsoleColor couleur) : base(0.4,1.1,coutMensuel, nom, prix, taille, couleur)
         {
             this.nombreTransport = nombreTransport;
             this.capaciteTransport = capaciteTransport;

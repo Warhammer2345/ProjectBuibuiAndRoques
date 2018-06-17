@@ -26,6 +26,16 @@ namespace ProjectRoquesAndBuiBui
             this.nbrEmployeMaxOuvriere = nbrEmployeMaxOuvriere;
             coefOccupation = 0;
         }
+        public Entreprise(double coefAttractivite, double coefCulture,int nbrEmployeMaxAise, int nbrEmployeMaxMoyenne, int nbrEmployeMaxOuvriere, int coutMensuel, string nom, int prix, int taille, ConsoleColor couleur) : base(coefAttractivite,coefCulture, coutMensuel, nom, prix, taille, couleur)
+        {
+            this.nbrEmployeActuelAise = 0;
+            this.nbrEmployeActuelMoyenne = 0;
+            this.nbrEmployeActuelOuvriere = 0;
+            this.nbrEmployeMaxAise = nbrEmployeMaxAise;
+            this.nbrEmployeMaxMoyenne = nbrEmployeMaxMoyenne;
+            this.nbrEmployeMaxOuvriere = nbrEmployeMaxOuvriere;
+            coefOccupation = 0;
+        }
 
         public int NbrEmployeActuelAise { get => nbrEmployeActuelAise; set => nbrEmployeActuelAise = value; }
         public int NbrEmployeActuelMoyenne { get => nbrEmployeActuelMoyenne; set => nbrEmployeActuelMoyenne = value; }

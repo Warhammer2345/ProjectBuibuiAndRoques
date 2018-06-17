@@ -16,8 +16,9 @@ namespace ProjectRoquesAndBuiBui
         int nbrEmployeMaxOuvriere;
         int produitVendu;
         int prixVente;
+        int prixOptimal;
         double coefOccupation;
-        public Commercant(int nbrEmployeMaxAise, int nbrEmployeMaxMoyenne, int nbrEmployeMaxOuvriere,int coutMensuel, string nom, int prix, int taille, ConsoleColor couleur) : base(coutMensuel, nom, prix, taille, couleur)
+        public Commercant(int nbrEmployeMaxAise, int nbrEmployeMaxMoyenne, int nbrEmployeMaxOuvriere,int coutMensuel, string nom, int prix, int taille, ConsoleColor couleur) : base(1.1,0.7,coutMensuel, nom, prix, taille, couleur)
         {
             this.nbrEmployeActuelAise = 0;
             this.nbrEmployeActuelMoyenne = 0;
@@ -25,6 +26,8 @@ namespace ProjectRoquesAndBuiBui
             this.nbrEmployeMaxAise = nbrEmployeMaxAise;
             this.nbrEmployeMaxMoyenne = nbrEmployeMaxMoyenne;
             this.nbrEmployeMaxOuvriere = nbrEmployeMaxOuvriere;
+            Random prixProduit = new Random();
+            this.prixOptimal = prixProduit.Next(20, 40);
             produitVendu = 0;
             this.coefOccupation = 0;
             prixVente = 10;
@@ -38,6 +41,7 @@ namespace ProjectRoquesAndBuiBui
         public int ProduitVendu { get => produitVendu; set => produitVendu = value; }
         public int PrixVente { get => prixVente; set => prixVente = value; }
         public double CoefOccupation { get => coefOccupation; set => coefOccupation = value; }
+        public int PrixOptimal { get => prixOptimal; set => prixOptimal = value; }
 
         public override string ToString()
         {

@@ -311,6 +311,7 @@ namespace ProjectRoquesAndBuiBui
 
         private double Revenu(Amenagement batisse)
         {
+            //(batisse as Commercant).ProduitVendu = (batisse as Commercant).PrixOptimal / Math.Sqrt(1);//Trouver équation produit vendu
             double recette = 0;
             if (batisse is Bureau)
                 recette += (batisse as Bureau).PlacesOccupees * (batisse as Bureau).PrixLocation;
@@ -469,8 +470,8 @@ namespace ProjectRoquesAndBuiBui
         }
         private void CalculBonheur()
         {
-            if (population >100)
-            {
+           /* if (population >100)
+            {*/
                 bonheur = 0;
                 //Bonheur en fonction de la nourriture
                 if (nourriture > population && nourriture < population * 1.2)//La population ne veut pas gâcher
@@ -502,7 +503,9 @@ namespace ProjectRoquesAndBuiBui
                     }
                 }
                 CalculBonheurParClasse();
+                /*
             }
+            
             else
             {
                 bonheur = 51;
@@ -510,6 +513,7 @@ namespace ProjectRoquesAndBuiBui
                 bonheurMoyenne = 51;
                 bonheurOuvriere = 51;
             }
+            */
 
 
         }
@@ -685,7 +689,7 @@ namespace ProjectRoquesAndBuiBui
             if (bonheurAisee < 50 && bonheurAisee > 40)
                 populationAisee = populationAisee * (13 / 16);
             else if (bonheurAisee < 40)
-                populationAisee = populationAisee * (2 / 3);
+                populationAisee = populationAisee * (3 / 4);
             else if (bonheurAisee > 80)
                 populationAisee = populationAisee * (23 / 21);
             if (bonheurMoyenne < 50 && bonheurMoyenne > 30)

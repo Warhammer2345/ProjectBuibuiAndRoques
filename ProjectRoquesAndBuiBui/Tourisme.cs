@@ -9,7 +9,7 @@ namespace ProjectRoquesAndBuiBui
     class Tourisme : Tertiaire
     {
         private int impactTourisme;
-        public Tourisme(int impactTourisme,int coutMensuel, string nom, int prix, int taille, ConsoleColor couleur) : base(coutMensuel, nom, prix, taille, couleur)
+        public Tourisme(int impactTourisme,int coutMensuel, string nom, int prix, int taille, ConsoleColor couleur) : base(1,1, coutMensuel, nom, prix, taille, couleur)
         {
             this.impactTourisme = impactTourisme;
         }

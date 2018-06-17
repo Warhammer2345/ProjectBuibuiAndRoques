@@ -11,6 +11,9 @@ namespace ProjectRoquesAndBuiBui
         public Tertiaire(int coutMensuel, string nom, int prix, int taille, ConsoleColor couleur) : base(coutMensuel, nom, prix, taille, couleur)
         {
         }
+        public Tertiaire(double coefCulture,double coefAttractivite,int coutMensuel, string nom, int prix, int taille, ConsoleColor couleur) : base(coefAttractivite,coefCulture, coutMensuel, nom, prix, taille, couleur)
+        {
+        }
 
         public override string ToString()
         {

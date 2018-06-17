@@ -22,6 +22,14 @@ namespace ProjectRoquesAndBuiBui
             this.coutMensuel = coutMensuel;
             estConnecte = false;
         }
+        public Batiment(double coefAttractivite,double coefCulture,int coutMensuel, string nom, int prix, int taille, ConsoleColor couleur) : base(nom, prix, taille, couleur)
+        {
+            this.coefBonheur = 1.1;
+            this.coefAttractivite = coefAttractivite;
+            this.coefCulture = coefCulture;
+            this.coutMensuel = coutMensuel;
+            estConnecte = false;
+        }
 
         public int CoutMensuel { get => coutMensuel; set => coutMensuel = value; }
         public double CoefAttractivite { get => coefAttractivite; set => coefAttractivite = value; }

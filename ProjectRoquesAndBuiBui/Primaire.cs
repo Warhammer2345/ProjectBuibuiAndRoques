@@ -19,7 +19,7 @@ namespace ProjectRoquesAndBuiBui
         int nbrEmployeMaxMoyenne;
         int nbrEmployeMaxOuvriere;
         double coefOccupation;
-        public Primaire(int nbrEmployeMaxOuvriere, int nbrEmployeMaxMoyenne, int nbrEmployeMaxAise,int productionMax, int coutMensuel, string nom, int prix, int taille, ConsoleColor couleur):base(coutMensuel,nom,prix,taille,couleur)
+        public Primaire(int nbrEmployeMaxOuvriere, int nbrEmployeMaxMoyenne, int nbrEmployeMaxAise,int productionMax, int coutMensuel, string nom, int prix, int taille, ConsoleColor couleur):base(0.4,1.1,coutMensuel,nom,prix,taille,couleur)
         {
             this.nbrEmployeMaxOuvriere = nbrEmployeMaxOuvriere;
             this.nbrEmployeMaxMoyenne = nbrEmployeMaxMoyenne;
